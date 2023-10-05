@@ -64,3 +64,7 @@ form >div{
     background-color: #022b3a;
     color: white;
 }
+.formButtons > input:hover{
+    background-color:#Bfdbf7;
+    color: black;
+}
