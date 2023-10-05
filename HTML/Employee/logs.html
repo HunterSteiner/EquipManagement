@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="../CSS/employeeHome.css" />
+    <!-- <link rel="JavaScript" href="tab.js"> -->    
+    <script>
+        // JavaScript to handle tab switching
+        function openTab(tabName) {
+            var i, tabContent;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <div class="topnav">
+        <a href="employeeHome.html">Home</a>
+        <a class="active" href="logs.html">Logs</a>
+      </div>
+      
+      <div style="padding-left:16px">
+        <h2>All Logs</h2>
+        <p>Log Table</p>
+      </div>
+</body>
+</html>
