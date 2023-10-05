@@ -1,17 +1,34 @@
 p{
-    color:red;
+    color:#022b3a;
+}
+p > a{
+    color: #022b3a;
+    float:right;
+    font-size: 30px;
+    padding: 4px 7px;
+    text-decoration: underline;
 }
 a{
-    background-color: gray;
-    font-size: 20px;
-    padding:20px;
-    margin:20px;
+   float:left;
+   color:white;
+   text-align: center;
+   padding:14px 16px;
+   text-decoration: none;
+   font-size: 17px;
+   
 }
 .menuBar{
-    display: flex;
-    justify-content: space-between;
-    background-color:lightgray;
+    background-color: #022b3a;
+    overflow:hidden;
 }
+.menuBar a.active{
+    background-color: #1f7a8c;
+}
+.menuBar a:hover {
+    background-color: #Bfdbf7;
+    color: black;
+}
+
 .mainContent{
     display:flex;
     flex-direction: column;
@@ -19,7 +36,7 @@ a{
 }
 h1{
     font-size: 40px;
-    color:gray;
+    color:#022b3a;
     display: flex;
     justify-content: center;
 }
@@ -29,7 +46,7 @@ form{
     flex-direction: column;
     font-size: 35px;
 
-    color:gray
+    color: #022b3a
     
 }
 form >div{
@@ -44,4 +61,6 @@ form >div{
 .formButtons > input{
     font-size: 30px;
     width: 120px;
+    background-color: #022b3a;
+    color: white;
 }
