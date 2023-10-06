@@ -5,14 +5,14 @@ p > a{
     color: #022b3a;
     float:right;
     font-size: 30px;
-    padding: 4px 7px;
+    padding: 4px 7px; 
     text-decoration: underline;
 }
 a{
    float:left;
    color:white;
    text-align: center;
-   padding:14px 16px;
+   padding:14px 16px; 
    text-decoration: none;
    font-size: 17px;
    
@@ -25,13 +25,17 @@ a{
     background-color: #1f7a8c;
 }
 .menuBar a:hover {
-    background-color: #Bfdbf7;
+    background-color: white;
     color: black;
 }
 
 .mainContent{
     display:flex;
     flex-direction: column;
+    background-color: white;
+    margin: 35px 50px;
+    height:600px;
+    border-radius: 30px;
 
 }
 h1{
@@ -67,4 +71,21 @@ form >div{
 .formButtons > input:hover{
     background-color:#Bfdbf7;
     color: black;
+}
+body{
+    background-color: #Bfdbf7;
+    margin:0;
+}
+.inputGroup{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.helpSection{
+    padding-top:40px;
+}
+input[type="text"],select{
+    margin-left:50px;
+    border-radius: 5px;
+    
+    
 }
