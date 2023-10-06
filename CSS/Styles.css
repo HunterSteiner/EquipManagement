@@ -17,9 +17,13 @@ a{
    font-size: 17px;
    
 }
+img{
+    float:right;
+}
 .menuBar{
     background-color: #022b3a;
     overflow:hidden;
+    height:48px;
 }
 .menuBar a.active{
     background-color: #1f7a8c;
@@ -73,7 +77,8 @@ form >div{
     color: black;
 }
 body{
-    background-color: #Bfdbf7;
+    /*background-color: #Bfdbf7; */
+    background-image: url(../Images/background3.png);
     margin:0;
     min-height: 100vh;
     display:flex;
@@ -91,6 +96,10 @@ input[type="text"],select{
     border-radius: 5px;
     
     
+}
+input[type="password"]{
+    margin-left:50px;
+    border-radius: 5px;
 }
 footer{
     margin-top:auto;
