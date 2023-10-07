@@ -1,0 +1,113 @@
+p{
+    color:#022b3a;
+}
+p > a{
+    color: #022b3a;
+    float:right;
+    font-size: 30px;
+    padding: 4px 7px; 
+    text-decoration: underline;
+}
+a{
+   float:left;
+   color:white;
+   text-align: center;
+   padding:14px 16px; 
+   text-decoration: none;
+   font-size: 17px;
+   
+}
+img{
+    float:right;
+}
+.menuBar{
+    background-color: #022b3a;
+    overflow:hidden;
+    height:48px;
+}
+.menuBar a.active{
+    background-color: #1f7a8c;
+}
+.menuBar a:hover {
+    background-color: white;
+    color: black;
+}
+
+.mainContent{
+    display:flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 35px 50px;
+    height:600px;
+    border-radius: 30px;
+
+}
+h1{
+    font-size: 40px;
+    color:#022b3a;
+    display: flex;
+    justify-content: center;
+}
+form{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 35px;
+
+    color: #022b3a
+    
+}
+form >div{
+    display:flex;
+    float:left;
+    font-size: 25px;
+}
+.formButtons{
+    display: flex;
+    margin-top:10px;
+
+}
+.formButtons > input{
+    font-size: 30px;
+    width: 120px;
+    background-color: #022b3a;
+    color: white;
+}
+.formButtons > input:hover{
+    background-color:#Bfdbf7;
+    color: black;
+}
+body{
+    /*background-color: #Bfdbf7; */
+    background-image: url(../Images/background3.png);
+    margin:0;
+    min-height: 100vh;
+    display:flex;
+    flex-direction: column;
+}
+.inputGroup{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.helpSection{
+    padding-top:40px;
+}
+input[type="text"],select{
+    margin-left:50px;
+    border-radius: 5px;
+    
+    
+}
+input[type="password"]{
+    margin-left:50px;
+    border-radius: 5px;
+}
+footer{
+    margin-top:auto;
+    display:flex;
+    flex-direction:row;
+}
+footer>p{
+    margin-top:200px;
+    padding-left:40px; 
+}
