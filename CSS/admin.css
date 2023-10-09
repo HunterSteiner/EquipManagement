@@ -4,12 +4,24 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  
 }
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color:#022B3A;
+  height:48px;
+}
+img{
+  float:right;
+}
+.mainContent{
+  display:flex;
+  flex-direction: column;
+  background-color: white;
+  margin: 35px 50px;
+  height:600px;
+  border-radius: 30px;
 }
 
 .topnav a {
@@ -20,13 +32,25 @@ body {
   text-decoration: none;
   font-size: 17px;
 }
-
-.topnav a:hover {
-  background-color: #Bfdbf7;
-  color: black;
-}
-
 .topnav a.active {
   background-color: #1F7A8C;
   color: white;
 }
+.topnav a:hover {
+  background-color: #Bfdbf7;
+  color: black;
+}
+body{
+  /*background-color: #Bfdbf7; */
+  background-image: url(../Images/background3.png);
+  margin:0;
+  min-height: 100vh;
+  display:flex;
+  flex-direction: column;
+}
+form{
+  overflow:hidden;
+  background-color: white;
+  
+}
+
