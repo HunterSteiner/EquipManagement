@@ -4,55 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
-    <link rel="stylesheet" href="../../CSS/admin.css" />
-    <!-- <link rel="JavaScript" href="tab.js"> -->
-    <script>
-        // JavaScript to handle tab switching
-        function openTab(tabName) {
-            var i, tabContent;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            document.getElementById(tabName).style.display = "block";
-        }
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-    }
-    </script>
+    <link rel="stylesheet" href="../../CSS/Styles.css" />
 </head>
 <body>
-    <div class="topnav">
-        <a class="active" href="adminHome.html">Home</a>
-        <a href="addClass.html">Add Class</a>
+    <div class="menuBar">
+        <a href="adminHome.html">Home</a>
         <a href="addEmployee.html">Add Employee</a>
         <a href="addInventory.html">Add Inventory</a>
-      </div>
-      
-      <div style="padding-left:16px">
-        <h2>Add Inventory</h2>
-        <!DOCTYPE html>
-<html>
-<body>
-
-
-<form action="/action_page.php">
-  <label for="fname">Equipment ID:</label>
-  <input type="text" id="fname" name="fname"><br><br>
-  <label for="lname">Equipment Name:</label>
-  <input type="text" id="lname" name="lname"><br><br>
-  <input type="submit" value="Submit">
-</form>
-
+        <a href="addClass.html">Add Class</a>
+        <img src="../../Images/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+    </div>
+    <div class="mainContent">
+        <h1>Add Inventory</h1>
+    </div>
 </body>
-
-      </div>
-</body>
-
 </html>
