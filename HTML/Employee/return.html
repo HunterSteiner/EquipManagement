@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="../../CSS/Styles.css" />
+    <style>
+        body {
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+           
+            
+         
+        }
+        .form-group label {
+          display: inline-block;
+          width: 100px;
+          font-weight: bold;
+        }
+        
+          
+          .table-container {
+          
+          display: flex;
+              
+          
+        }
+        table {
+          border-collapse: separate;
+          border: 1px solid #ccc;
+          margin-right: 50px;
+          margin-left: 80px;
+            width: 240px 
+        }
+        th, td {
+          border: 1px solid #ccc;
+          padding: 8px;
+          
+            
+        }
+          
+        .flex-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content:space-between;
+           
+        }
+      </style>
 </head>
 <body>
     <div class="menuBar">
@@ -14,6 +55,62 @@
         <a href="logs.html">Logs</a>
         <img src="../../Images/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
     </div>
-    <h2>Returns</h2>
+    
+
+    <div class="mainContent">
+	
+        <div class="flex-container">
+          <div class="form-group">
+            
+            <br><input type="text" placeholder="Enter Name" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            
+           <br> <input type="email" placeholder="Enter Email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            
+           <br> <input type="date" id="date" name="date" required>
+          </div>
+        </div>
+        <div class="label">
+          <label for="equipment-id"><br>Return Items</label><br>
+            
+            <div class="table-container">
+          <table>
+            <tr>
+              <th>Check out</th>
+            </tr>
+            <tr>
+              <td>Camera 01</td>
+            </tr>
+            <tr>
+              <td>Camera 2</td>
+            </tr>
+            <tr>
+              <td>Camera 3</td>
+            </tr>
+          </table>
+      
+          <table>
+            <tr>
+              <th>Returned</th>
+            </tr>
+            <tr>
+              <td>Microphone</td>
+            </tr>
+            <tr>
+              <td>Microphone</td>
+            </tr>
+            <tr>
+              <td>Microphone</td>
+            </tr>
+          </table>
+        </div>
+          
+        </div>
+          
+          </div>
+        </div>
 </body>
 </html>
