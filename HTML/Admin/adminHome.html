@@ -4,41 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
-    <link rel="stylesheet" href="../../CSS/admin.css" />
-    <!-- <link rel="JavaScript" href="tab.js"> -->
-    <script>
-        // JavaScript to handle tab switching
-        function openTab(tabName) {
-            var i, tabContent;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            document.getElementById(tabName).style.display = "block";
-        }
-    // Get the modal
-    var modal = document.getElementById('id01');
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-    }
-    </script>
+    <link rel="stylesheet" href="../../CSS/Styles.css" />
 </head>
 <body>
-    <div class="topnav">
-        <a class="active" href="adminHome.html">Home</a>
-        <a href="addClass.html">Add Class</a>
+    <div class="menuBar">
+        <a href="adminHome.html">Home</a>
         <a href="addEmployee.html">Add Employee</a>
         <a href="addInventory.html">Add Inventory</a>
-      </div>
-      
-      <div style="padding-left:16px">
-        <h2>Web Check-out</h2>
-
-
-      </div>
+        <a href="addClass.html">Add Class</a>
+        <img src="../../Images/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+    </div>
+    <div class="mainContent">
+        <h1>Admin Home Page</h1>
+        <p style="font-size: 20px;"><strong>Add Employee:</strong> Admins can easily onboard new employees with this page. Enter their school email address and assign a temporary password. The system automatically sends an email for email verification and password change, ensuring secure access.</p>
+        <p style="font-size: 20px;"><strong>Add Inventory: </strong> inventory management. Add new items effortlessly by providing the equipment's name and its unique ID. This page streamlines the process of expanding your inventory database.</p>
+        <p style="font-size: 20px;"><strong>Add Class: </strong>Managing student access is a breeze. Use this page to add classes of students authorized to check out equipment. By inputting class details, you control who has access, ensuring equipment lending is organized and controlled.</p>
+    </div>
 </body>
 </html>
