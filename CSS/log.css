@@ -49,33 +49,15 @@ h1{
     justify-content: center;
 }
 form{
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    font-size: 35px;
-
-    color: #022b3a
+    overflow:hidden;
+    height:80px;
+    border-bottom: 1px solid #022b3a;
     
-}
-form >div{
-    display:flex;
-    justify-content: center;
-}
-.formButtons{
-    display: flex;
-    margin-top:10px;
 
+    font-size: 35px;
+    color: #022b3a;
 }
-.formButtons > input{
-    font-size: 30px;
-    width: 120px;
-    background-color: #022b3a;
-    color: white;
-}
-.formButtons > input:hover{
-    background-color:#Bfdbf7;
-    color: black;
-}
+
 body{
     /*background-color: #Bfdbf7; */
     background-image: url(../Images/background3.png);
@@ -84,22 +66,45 @@ body{
     display:flex;
     flex-direction: column;
 }
+
+.buttonGroup{
+    float:right;
+    margin-right:50px;
+    
+}
+input[type="submit"],input[type="reset"]{
+    font-size: 20px;
+    width: 120px;
+    background-color: #022b3a;
+    color: white;
+}
+
+
 .inputGroup{
+    display:flex;
+    flex-direction: row;
     padding-top: 10px;
     padding-bottom: 10px;
-}
-.helpSection{
-    padding-top:40px;
-}
-input[type="text"],select{
-    margin-left:50px;
-    border-radius: 5px;
-    
+    float:left;
+    font-size: 20px;
     
 }
-input[type="password"]{
+td{
+    border:1px solid #022b3a;
+    
+}
+caption{
+    font-size: 25px;
+    color:#022b3a
+}
+
+
+input[type="text"]{
     margin-left:50px;
     border-radius: 5px;
+    float:right;
+    margin-right:50px;
+    
 }
 footer{
     margin-top:auto;

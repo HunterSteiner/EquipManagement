@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="../../CSS/employeeHome.css" />
-    <!-- <link rel="JavaScript" href="tab.js"> -->    
-    <script>
-        // JavaScript to handle tab switching
-        function openTab(tabName) {
-            var i, tabContent;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            document.getElementById(tabName).style.display = "block";
-        }
-    </script>
+    <meta charset="utf-8">
+    <title>Logs</title>
+    <link rel="stylesheet" href="../../CSS/log.css" />
 </head>
+
 <body>
-    <div class="topnav">
+    <div class="menuBar">
         <a href="employeeHome.html">Home</a>
         <a class="active" href="logs.html">Logs</a>
-        <a href="checkout.html">Check-out</a>
+        <a href="checkout.html">Checkout</a>
         <a href="return.html">Return</a>
-      </div>
-      
-      <div style="padding-left:16px">
-        <h2>All Logs</h2>
-        <p>Log Table</p>
-        <!-- ADD YOUR CODE HERE -->
+        <img src="../../Images/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
 
 
+    </div>
+    <div class="mainContent">
+        <h1>Logs</h1>
+        <form>
+                <div class="inputGroup">
+                    <label for="dataSearch">Equipment ID:</label>
+                    <input type="text" name="dataSearch" id="dataSearch">
+                </div>
+                <div class="inputGroup">
+                    <label for="date1">From:</label>
+                    <input type="date" name="date1" id="date1">
+                </div>
+                <div class="inputGroup">
+                    <label for="date2">To:</label>
+                    <input type="date" name="date2" id="date2">
+                </div>
+                <div class="buttonGroup">
+                    <input type="submit" value="Search">
+                    <input type="reset"  value="Reset">
+                </div>
+        </form>
+        <table>
+            <caption>Results</caption>
+            <tr>
+                <th>Equipment ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Owner</th>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+                <td>Data</td>
+            </tr>
 
-      </div>
+        </table>
+    </div>
+
 </body>
-</html>
+<footer>
+    <p>CopyRight (999)999-9999</p>
+    <p>123 street ave, Normal IL</p>
+
+</footer>
