@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Information Form</title>
+<style>
+  body {
+    font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, "sans-serif"
+    margin: 5px;
+  }
+	 body{
+		  display: flex;
+		  height: 100vh;
+		  justify-content: center;
+		  align-items: center;
+		  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+	  }
+	  
+  .form-group {
+    margin-bottom: 5px;
+  }
+  .form-group label {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+  }
+  .form-group input, .form-group select {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+  }
+	
+	.container{
+		max-width: 700px;
+		width: 100%;
+		background: #fff;
+		padding: 25px 30px;
+		border-radius: 5px;
+	}
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+	 
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="flex-container">
+    <div class="form-group">
+      
+      <input type="text" placeholder="Enter Name" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+      
+      <input type="email" placeholder="Enter Email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      
+      <input type="date" id="date" name="date" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="equipment-id">Equipment ID</label>
+    <input type="text" id="equipment-id" name="equipment-id" required>
+  </div>
+	<div class="form-group">
+    <label for="equipment-id">Equipment ID</label>
+    <input type="text" id="equipment-id1" name="equipment-id" required>
+  </div>
+	<div class="form-group">
+    <label for="equipment-id">Equipment ID</label>
+    <input type="text" id="equipment-id2" name="equipment-id" required>
+  </div>
+	<div class="form-group">
+    <label for="equipment-id">Equipment ID</label>
+    <input type="text" id="equipment-id3" name="equipment-id" required>
+  </div>
+  <div class="form-group">
+    <label for="equipment2">Equipment ID</label>
+    <input type="text" id="equipment2" name="equipment2" required>
+	  
+  </div>
+	<button >submit</button>
+	</div>
+</body>
+</html>
