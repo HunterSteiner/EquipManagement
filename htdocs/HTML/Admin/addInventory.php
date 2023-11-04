@@ -22,7 +22,7 @@ if (!isset ($_SESSION["username"])){
         <a href="adminHome.php">Home</a>
         <a href="addEmployee.php">Add Employee</a>
         <a class= "active" href="addInventory.php">Add Inventory</a>
-        <a href="addClass.php">Add Class</a>
+        <a href="manageStudents.php">Add Class</a>
         <div class= "subgroup">
         <?php
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
