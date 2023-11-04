@@ -164,5 +164,24 @@ footer>p{
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color:#022b3a;
   
+}
+.listResponse{
+  display:flex;
+  flex-direction: row;
+  
+  
 
+}
+.listResponse > p{
+  color:#022b3a;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding-left:20px;
+  width: 250px;
+
+
+}
+.loadLocation{
+  margin-bottom: 50px;
 }

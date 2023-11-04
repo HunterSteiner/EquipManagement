@@ -28,14 +28,29 @@ if (!isset ($_SESSION["username"])){
             success: function(res) {
 
               var start = document.getElementById("loadLocation");
+              start.innerHTML = "";
                 
               var array = JSON.parse(res);
 
-              for(i=0; i<array.length; i++){
+              for(i=0; i<array.length; i +=2){
+                divCont = document.createElement("div");
+                
+
+
+
                 line = document.createElement("p");
-                text = document.createTextNode(array[i]);
+                text = document.createTextNode("Name: "+array[i+1]);
+                line2 = document.createElement("p");
+                text2= document.createTextNode("ID: "+array[i]);
+                divCont.appendChild(line);
                 line.appendChild(text);
-                start.appendChild(line);
+                divCont.appendChild(line2);
+                line2.appendChild(text2);
+
+                start.appendChild(divCont);
+                divCont.classList.add("listResponse");
+                linebreak = document.createElement("hr");
+                start.appendChild(linebreak);
 
               }
               
@@ -54,7 +69,8 @@ if (!isset ($_SESSION["username"])){
         <a href="adminHome.php">Home</a>
         <a href="addEmployee.php">Add Employee</a>
         <a href="addInventory.php">Add Inventory</a>
-        <a class= "active" href="addClass.php">Add Class</a>
+        <a href="addClass.php">Add Class</a>
+        <a class="active" href="manageStudents.php">Manage Students</a>
         <div class= "subgroup">
         <?php
             echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
@@ -74,7 +90,9 @@ if (!isset ($_SESSION["username"])){
     <button type="submit" name="save" class="registerbtn">Display</button>
   </div>
 </form>
- <h4 id="loadLocation">Student List:</h4>
+ <h4 >Student List:</h4>
+ <div id="loadLocation" class = "loadLocation">
+</div>
  
  
 </div>
