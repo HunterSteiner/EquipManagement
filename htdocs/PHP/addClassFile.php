@@ -18,8 +18,7 @@ if(!$conn)
     die("Connection Failed:" . mysqli_connect_error()); 
 }
 
-if(isset($_POST['save']))
-{
+
     $class_id = $_POST['classID'];
     $class_name = $_POST['className'];
 
@@ -36,4 +35,3 @@ if(isset($_POST['save']))
         echo "Error: " . $sql . "" . mysqli_error($conn);
     }
     mysqli_close($conn);
-}

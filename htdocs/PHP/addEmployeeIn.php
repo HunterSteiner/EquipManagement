@@ -11,8 +11,7 @@ if(!$conn)
     die("Connection Failed:" . mysqli_connect_error()); 
 }
 
-if(isset($_POST['save']))
-{
+
     $first_name = $_POST['firstname'];
     $last_name = $_POST['lastname'];
     $user_name = $_POST['username'];
@@ -41,4 +40,3 @@ if(isset($_POST['save']))
         echo "Error: " . $sql . "" . mysqli_error($conn);
     }
     mysqli_close($conn);
-}

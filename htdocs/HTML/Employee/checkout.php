@@ -15,6 +15,34 @@ if (!isset ($_SESSION["username"])){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../CSS/addEmployee.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script>
+  $(function () {
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'post',
+            url: '../../PHP/checkoutFile.php',
+            data: $('form').serialize(),
+            success: function(res) {
+
+              alert("Equipment checked out.");
+
+              input1 = document.getElementById("equipmentid");
+              input1.value = "";
+
+              input2 = document.getElementById("studentid");
+              input2.value = "";
+
+              }
+              
+        });
+    });
+
+});
+</script>
 
 </head>
 <body>
@@ -31,7 +59,7 @@ if (!isset ($_SESSION["username"])){
         <img src="../../img/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
         </div>
 </div>
-<form action="../../PHP/checkoutFile.php" method="POST">
+<form>
   <div class="container">
     <h1>Check-Out</h1>
     <p>Please fill in this form to check-out an item</p>
