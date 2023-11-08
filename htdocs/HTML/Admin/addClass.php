@@ -1,6 +1,6 @@
 
 <?php
-
+//checks if the user has the proper authorization, will automatically redirect them to login page if not
 session_start();
 if (!isset ($_SESSION["username"])){
     header ("Location: ../../index.html");
@@ -15,6 +15,7 @@ if (!isset ($_SESSION["username"])){
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../CSS/addEmployee.css" />
+<!--This is the ajax section. Line 19 imports the library required for jquery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
@@ -27,16 +28,16 @@ if (!isset ($_SESSION["username"])){
             url: '../../PHP/addClassFile.php',
             data: $('form').serialize(),
             success: function(res) {
+              //This is the section that will run after running the php file. res is the data response from the php file.
 
               alert("New Class created.");
 
+             //the following lines just resets the 2 input boxes after hitting submit
               input1 = document.getElementById("classID");
               input1.value = "";
 
               input2 = document.getElementById("className");
               input2.value = "";
-
-              
 
               }
               

@@ -11,8 +11,7 @@ if(!$conn)
     die("Connection Failed:" . mysqli_connect_error()); 
 }
 
-if(isset($_POST['save']))
-{
+
     session_start();
 
     $user_name = $_POST['user_name'];
@@ -35,7 +34,7 @@ if(isset($_POST['save']))
     $result = mysqli_query($conn,$sql_query);
 
     if(mysqli_num_rows($result) == 0){
-        echo "<p>Incorrect username or password.</p>";
+        echo "fail";
     }
     else
     {
@@ -48,11 +47,11 @@ if(isset($_POST['save']))
             $_SESSION["username"] = $user_name_test;
             if(($user_type_conv == 1) && ($user_type_test == 1) ){
                     $_SESSION["administrator"] = $user_type_test;
-                    header("Location: ../HTML/Admin/adminHome.php");
+                    echo "admin";
                     die;
                 
             }else{
-                header("Location: ../HTML/Employee/employeeHome.php");
+                echo "employee";
                 die;
 
             }
@@ -60,10 +59,9 @@ if(isset($_POST['save']))
             
         }
         else {
-            echo "Incorrect username or password. </p>";
+            echo "fail";
         }
         
     }
     
     mysqli_close($conn);
-}
