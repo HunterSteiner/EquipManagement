@@ -4,7 +4,7 @@ session_start();
 if (!isset ($_SESSION["username"])){
     header ("Location: ../../index.html");
     die;
-} 
+}
 
 ?>
 
@@ -16,7 +16,132 @@ if (!isset ($_SESSION["username"])){
 <link rel="stylesheet" href="../../CSS/addEmployee.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
+  //after dom is loaded
   $(function () {
+    //getting data for drop down
+    $.getJSON('../../PHP/populateManageStudents.php', function(data) {
+      
+      
+      let dropDown = document.getElementById("classID");
+
+      for(i=0; i<data.length; i++){
+        let option = document.createElement("option");
+        option.value = data[i];
+        option.innerHTML = data[i];
+        dropDown.appendChild(option);
+      }
+      let options = document.querySelectorAll("option");
+          for(i=0; i<options.length; i++){
+            if(options[i].value == "<?php if(isset ($_SESSION["selectedClass"])){ 
+                                          echo $_SESSION["selectedClass"];
+                                          }else{
+                                            echo "notset";
+                                          }
+            
+                                                                    ?>"){
+              options[i].selected = "selected";
+            }
+          }
+      
+
+    });
+
+
+
+    let actualcond = false;
+
+      let cond = <?php
+                       if(isset($_COOKIE["backtoStudents"])){
+                        echo "true";
+                       }else{
+                        echo "false";
+                       }
+                       ?>;
+      console.log(cond);
+      if(cond){
+        console.log("this");
+        actualcond = true;
+      }
+      console.log(actualcond);
+
+      
+      
+      
+      
+      if(actualcond){
+        console.log("running one");
+        $.getJSON('../../PHP/manageStudentsTest.php', function(data) {
+          console.log("running");
+
+          
+
+
+
+          
+          var start = document.getElementById("loadLocation");
+              start.innerHTML = "";
+              headDiv = document.createElement("div");
+              colHead = document.createElement("p");
+              colHead.innerHTML = "<strong>Name</strong>";
+              colHead2 = document.createElement("p");
+              colHead2.innerHTML = "<strong>ID</strong>";
+
+              headDiv.appendChild(colHead);
+              headDiv.appendChild(colHead2);
+              start.appendChild(headDiv);
+              headDiv.classList.add("listResponse");
+              linebreak = document.createElement("hr");
+              start.appendChild(linebreak);
+              linebreak.style.backgroundColor = "#f1f1f1";
+              linebreak.style.height = "7px";
+              linebreak.style.border = "none";
+              
+              
+              
+              
+                
+              var array = data;
+
+              for(i=0; i<array.length; i +=2){
+                divCont = document.createElement("div");
+                
+
+
+
+                line = document.createElement("p");
+                text = document.createTextNode(array[i+1]);
+                line2 = document.createElement("p");
+                text2= document.createTextNode(array[i]);
+                divCont.appendChild(line);
+                line.appendChild(text);
+                divCont.appendChild(line2);
+                line2.appendChild(text2);
+
+                start.appendChild(divCont);
+                divCont.classList.add("listResponse");
+                linebreak = document.createElement("hr");
+                start.appendChild(linebreak);
+
+              }
+              console.log("this area");
+              <?php setcookie("backtoStudents","",time() - (80000 *20), "/"); ?>
+
+          
+
+        });
+        
+        
+
+      } 
+
+
+
+
+
+
+
+
+
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -29,6 +154,23 @@ if (!isset ($_SESSION["username"])){
 
               var start = document.getElementById("loadLocation");
               start.innerHTML = "";
+              headDiv = document.createElement("div");
+              colHead = document.createElement("p");
+              colHead.innerHTML = "<strong>Name</strong>";
+              colHead2 = document.createElement("p");
+              colHead2.innerHTML = "<strong>ID</strong>";
+
+              headDiv.appendChild(colHead);
+              headDiv.appendChild(colHead2);
+              start.appendChild(headDiv);
+              headDiv.classList.add("listResponse");
+              linebreak = document.createElement("hr");
+              start.appendChild(linebreak);
+              linebreak.style.backgroundColor = "#f1f1f1";
+              linebreak.style.height = "7px";
+              linebreak.style.border = "none";
+              
+              
                 
               var array = JSON.parse(res);
 
@@ -39,9 +181,9 @@ if (!isset ($_SESSION["username"])){
 
 
                 line = document.createElement("p");
-                text = document.createTextNode("Name: "+array[i+1]);
+                text = document.createTextNode(array[i+1]);
                 line2 = document.createElement("p");
-                text2= document.createTextNode("ID: "+array[i]);
+                text2= document.createTextNode(array[i]);
                 divCont.appendChild(line);
                 line.appendChild(text);
                 divCont.appendChild(line2);
@@ -85,12 +227,18 @@ if (!isset ($_SESSION["username"])){
     <h1>Manage Students</h1>
     <p>Please fill in class ID to display students</p>
     <hr>
-    <label for="classID">Display Class</label>
-    <input type="text" placeholder="Enter Class ID" name="classID" id="classID" required>
+    <label for="classID">Select Class</label>
+    <select name="classID" placeholder ="Select" id = "classID">
+    </select>
     <button type="submit" name="save" class="registerbtn">Display</button>
   </div>
 </form>
+<div class= "listGroup">
+
  <h4 >Student List:</h4>
+ <a href="addStudent.php">Add Students</a>
+ 
+</div>
  <div id="loadLocation" class = "loadLocation">
 </div>
  

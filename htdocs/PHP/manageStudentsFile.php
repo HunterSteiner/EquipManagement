@@ -17,14 +17,17 @@ if(!$conn)
 {
     die("Connection Failed:" . mysqli_connect_error()); 
 }
-
+    
     $class_id = $_POST['classID'];
+    
 
     $sql_query = "SELECT student_id, student_name FROM student WHERE class_id = '$class_id'";
 
     $result = mysqli_query($conn,$sql_query);
 
     $stuList = array();
+
+    $_SESSION["selectedClass"] = $class_id;
 
     $testval = 0;
 

@@ -80,6 +80,20 @@
     background-color: #ddd;
     outline: none;
   }
+  select{
+    width: 15%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    
+    border: none;
+    background: #f1f1f1;
+
+  }
+  option{
+    text-align: center;
+    padding-top: 10px;
+
+  }
   
   /* Overwrite default styles of hr */
   hr {
@@ -95,7 +109,7 @@
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 30%;
     opacity: 0.9;
   }
   
@@ -153,12 +167,7 @@ footer>p{
   font-size:20px;
   border-radius: 30px;
 }
-.extended-form > h4{
-  color:#022b3a;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  padding-left: 10px;
-  
-}
+
 .extended-form > p{
   padding-left:15px;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -184,4 +193,39 @@ footer>p{
 }
 .loadLocation{
   margin-bottom: 50px;
+}
+
+.listGroup > a{
+  float: right;
+  font-size: 15px;
+  padding-left: 10px;
+  padding-top:30px;
+  position: relative;
+}
+.listGroup{
+  display:flex;
+  flex-direction: row;
+  
+}
+.listGroup > h4{
+  color:#022b3a;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding-left: 10px;
+  float:left;
+  position: relative;
+  
+  
+  
+}
+.backbtn{
+  background-image: url(../img/arrow.png);
+  background-color: transparent;
+  width: 60px;
+  height: 50px;
+  border:0px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.backbtn:hover{
+  opacity:1.0;
 }
