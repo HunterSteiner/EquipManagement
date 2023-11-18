@@ -112,10 +112,13 @@ if (!isset ($_SESSION["username"])){
                 text = document.createTextNode(array[i+1]);
                 line2 = document.createElement("p");
                 text2= document.createTextNode(array[i]);
+                editbtn = document.createElement("button");
+                editbtn.innerHTML = "Edit";
                 divCont.appendChild(line);
                 line.appendChild(text);
                 divCont.appendChild(line2);
                 line2.appendChild(text2);
+                divCont.appendChild(editbtn);
 
                 start.appendChild(divCont);
                 divCont.classList.add("listResponse");
@@ -133,15 +136,6 @@ if (!isset ($_SESSION["username"])){
         
 
       } 
-
-
-
-
-
-
-
-
-
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -176,6 +170,7 @@ if (!isset ($_SESSION["username"])){
 
               for(i=0; i<array.length; i +=2){
                 divCont = document.createElement("div");
+                divCont.dataset.id = array[i];
                 
 
 
@@ -184,10 +179,14 @@ if (!isset ($_SESSION["username"])){
                 text = document.createTextNode(array[i+1]);
                 line2 = document.createElement("p");
                 text2= document.createTextNode(array[i]);
+                editbtn = document.createElement("button");
+                editbtn.innerHTML = "Edit";
+                editbtn.dataset.id = array[i];
                 divCont.appendChild(line);
                 line.appendChild(text);
                 divCont.appendChild(line2);
                 line2.appendChild(text2);
+                divCont.appendChild(editbtn);
 
                 start.appendChild(divCont);
                 divCont.classList.add("listResponse");
@@ -195,6 +194,32 @@ if (!isset ($_SESSION["username"])){
                 start.appendChild(linebreak);
 
               }
+              //event listener for the edit buttons
+              //to do: need to remove this event listener each time after the display button is pressed
+              start.addEventListener("click", function(e){
+                if(e.target.tagName == "BUTTON"){
+                 let thistest= e.target.parentElement;
+                 let thistestChildren = thistest.children;
+                 let newinput = document.createElement("input");
+                 thistext = thistestChildren[0].innerHTML;
+                 thistest.removeChild(thistestChildren[0]);
+                 
+                 thistest.prepend(newinput);
+                 newinput.value = thistext;
+                 console.log(thistext);
+                 
+
+
+
+                 
+                 
+
+
+
+                  
+                }
+
+              });
               
                 
             }

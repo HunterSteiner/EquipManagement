@@ -191,6 +191,18 @@ footer>p{
 
 
 }
+.listResponse > button{
+  background-color: #1f7a8c;
+  color:white;
+  border:0px;
+  cursor: pointer;
+  opacity: .9;
+  margin-left: auto;
+  margin-right:35px;
+}
+.listResponse > button:hover{
+  opacity: 1.0;
+}
 .loadLocation{
   margin-bottom: 50px;
 }
