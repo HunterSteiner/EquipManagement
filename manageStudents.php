@@ -19,6 +19,7 @@ if (!isset ($_SESSION["username"])){
   //after dom is loaded
   $(function () {
     //getting data for drop down
+    //TODO use browser storage to determine if the class should be pre displayed
     $.getJSON('../../PHP/populateManageStudents.php', function(data) {
       
       
@@ -30,144 +31,7 @@ if (!isset ($_SESSION["username"])){
         option.innerHTML = data[i];
         dropDown.appendChild(option);
       }
-      let options = document.querySelectorAll("option");
-          for(i=0; i<options.length; i++){
-            if(options[i].value == "<?php if(isset ($_SESSION["selectedClass"])){ 
-                                          echo $_SESSION["selectedClass"];
-                                          }else{
-                                            echo "notset";
-                                          }
-            
-                                                                    ?>"){
-              options[i].selected = "selected";
-            }
-          }
-      
-
     });
-
-
-
-    let actualcond = false;
-
-      let cond = <?php
-                       if(isset($_COOKIE["backtoStudents"])){
-                        echo "true";
-                       }else{
-                        echo "false";
-                       }
-                       ?>;
-      console.log(cond);
-      if(cond){
-        console.log("this");
-        actualcond = true;
-      }
-      console.log(actualcond);
-
-      
-      
-      
-      
-      if(actualcond){
-        console.log("running one");
-        $.getJSON('../../PHP/manageStudentsTest.php', function(data) {
-          console.log("running");
-
-          
-
-
-
-          
-          var start = document.getElementById("loadLocation");
-              start.innerHTML = "";
-              headDiv = document.createElement("div");
-              colHead = document.createElement("p");
-              colHead.innerHTML = "<strong>Name</strong>";
-              colHead2 = document.createElement("p");
-              colHead2.innerHTML = "<strong>ID</strong>";
-
-              headDiv.appendChild(colHead);
-              headDiv.appendChild(colHead2);
-              start.appendChild(headDiv);
-              headDiv.classList.add("listResponse");
-              linebreak = document.createElement("hr");
-              start.appendChild(linebreak);
-              linebreak.style.backgroundColor = "#f1f1f1";
-              linebreak.style.height = "7px";
-              linebreak.style.border = "none";
-              
-              
-              
-              
-                
-              var array = data;
-
-              for(i=0; i<array.length; i +=2){
-                divCont = document.createElement("div");
-                
-
-
-
-                line = document.createElement("p");
-                text = document.createTextNode(array[i+1]);
-                line2 = document.createElement("p");
-                text2= document.createTextNode(array[i]);
-                editbtn = document.createElement("button");
-                editbtn.innerHTML = "Edit";
-                divCont.appendChild(line);
-                line.appendChild(text);
-                divCont.appendChild(line2);
-                line2.appendChild(text2);
-                divCont.appendChild(editbtn);
-
-                start.appendChild(divCont);
-                divCont.classList.add("listResponse");
-                linebreak = document.createElement("hr");
-                start.appendChild(linebreak);
-
-              }
-              let cloneStart = start.cloneNode(true);
-              start.parentNode.replaceChild(cloneStart,start);
-
-
-              cloneStart.addEventListener("click", function(e){
-                if((e.target.tagName == "BUTTON") && !(e.target.dataset.crrent == "1")){
-                  let thistest= e.target.parentElement;
-                  console.log("thisbutton is clicked");
-                  
-                 
-
-
-                }
-                
-
-
-
-
-
-
-
-              });
-
-              
-
-
-
-
-
-
-
-
-              console.log("this area");
-              <?php setcookie("backtoStudents","",time() - (80000 *20), "/"); ?>
-
-          
-
-        });
-        
-        
-
-      } 
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -214,6 +78,7 @@ if (!isset ($_SESSION["username"])){
                 editbtn = document.createElement("button");
                 editbtn.innerHTML = "Edit";
                 editbtn.dataset.id = array[i];
+                editbtn.dataset.crrent = "0";
                 divCont.appendChild(line);
                 line.appendChild(text);
                 divCont.appendChild(line2);
@@ -233,8 +98,7 @@ if (!isset ($_SESSION["username"])){
 
 
               cloneStart.addEventListener("click", function(e){
-                console.log(e.target.dataset.crrent);
-                if((e.target.tagName == "BUTTON") && !(e.target.dataset.crrent == "1")){
+                if((e.target.tagName == "BUTTON") && (e.target.dataset.crrent == "0")){
                  let thistest= e.target.parentElement;
                  console.log("this button is activating");
                  let thistestChildren = thistest.children;
@@ -246,7 +110,10 @@ if (!isset ($_SESSION["username"])){
                  //add confirm button
                  let confbtn = document.createElement("button");
                  confbtn.innerHTML = "Confirm";
+                 confbtn.dataset.crrent = "notset";
                  thistest.prepend(confbtn);
+                 confbtn.style.marginLeft = "0px";
+                 confbtn.style.marginRight= "14.3px";
                  
                  thistest.prepend(newinput);
                  newinput.value = thistext;
@@ -267,13 +134,25 @@ if (!isset ($_SESSION["username"])){
                   thistest.prepend(newpara);
                   thistest.removeChild(thistestChildren[1]);
 
-                  
+                 });
+                 confbtn.addEventListener("click", function(e){
+                  let values = {
+                    'stuName': newinput.value,
+                    'stuId': thistestChildren[2].innerHTML
+                  };
+                  $.ajax({
+                    type: 'post',
+                    url: '../../PHP/editStudent.php',
+                    data: values,
+                    success: function(res){
+                      console.log(res);
+                      console.log(confbtn.dataset.crrent);
 
-                  
-
-
+                    }
+                  })
 
                  });
+
                  
                  
                 }
@@ -281,7 +160,7 @@ if (!isset ($_SESSION["username"])){
                   
                   let cloneEditbtn = e.target.cloneNode(true);
                   e.target.parentNode.replaceChild(cloneEditbtn,e.target);
-                  cloneEditbtn.dataset.crrent = "notset";
+                  cloneEditbtn.dataset.crrent = "0";
                   console.log("this is running and data ="+e.target.dataset.crrent);
                  
                 }
