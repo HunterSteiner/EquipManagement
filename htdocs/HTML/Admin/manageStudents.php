@@ -18,67 +18,10 @@ if (!isset ($_SESSION["username"])){
 <script>
   //after dom is loaded
   $(function () {
-    //getting data for drop down
-    $.getJSON('../../PHP/populateManageStudents.php', function(data) {
-      
-      
-      let dropDown = document.getElementById("classID");
 
-      for(i=0; i<data.length; i++){
-        let option = document.createElement("option");
-        option.value = data[i];
-        option.innerHTML = data[i];
-        dropDown.appendChild(option);
-      }
-      let options = document.querySelectorAll("option");
-          for(i=0; i<options.length; i++){
-            if(options[i].value == "<?php if(isset ($_SESSION["selectedClass"])){ 
-                                          echo $_SESSION["selectedClass"];
-                                          }else{
-                                            echo "notset";
-                                          }
-            
-                                                                    ?>"){
-              options[i].selected = "selected";
-            }
-          }
-      
+    function loadStuList(array){
 
-    });
-
-
-
-    let actualcond = false;
-
-      let cond = <?php
-                       if(isset($_COOKIE["backtoStudents"])){
-                        echo "true";
-                       }else{
-                        echo "false";
-                       }
-                       ?>;
-      console.log(cond);
-      if(cond){
-        console.log("this");
-        actualcond = true;
-      }
-      console.log(actualcond);
-
-      
-      
-      
-      
-      if(actualcond){
-        console.log("running one");
-        $.getJSON('../../PHP/manageStudentsTest.php', function(data) {
-          console.log("running");
-
-          
-
-
-
-          
-          var start = document.getElementById("loadLocation");
+      var start = document.getElementById("loadLocation");
               start.innerHTML = "";
               headDiv = document.createElement("div");
               colHead = document.createElement("p");
@@ -95,78 +38,6 @@ if (!isset ($_SESSION["username"])){
               linebreak.style.backgroundColor = "#f1f1f1";
               linebreak.style.height = "7px";
               linebreak.style.border = "none";
-              
-              
-              
-              
-                
-              var array = data;
-
-              for(i=0; i<array.length; i +=2){
-                divCont = document.createElement("div");
-                
-
-
-
-                line = document.createElement("p");
-                text = document.createTextNode(array[i+1]);
-                line2 = document.createElement("p");
-                text2= document.createTextNode(array[i]);
-                editbtn = document.createElement("button");
-                editbtn.innerHTML = "Edit";
-                divCont.appendChild(line);
-                line.appendChild(text);
-                divCont.appendChild(line2);
-                line2.appendChild(text2);
-                divCont.appendChild(editbtn);
-
-                start.appendChild(divCont);
-                divCont.classList.add("listResponse");
-                linebreak = document.createElement("hr");
-                start.appendChild(linebreak);
-
-              }
-              console.log("this area");
-              <?php setcookie("backtoStudents","",time() - (80000 *20), "/"); ?>
-
-          
-
-        });
-        
-        
-
-      } 
-
-    $('form').on('submit', function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: 'post',
-            url: '../../PHP/manageStudentsFile.php',
-            data: $('form').serialize(),
-            success: function(res) {
-
-              var start = document.getElementById("loadLocation");
-              start.innerHTML = "";
-              headDiv = document.createElement("div");
-              colHead = document.createElement("p");
-              colHead.innerHTML = "<strong>Name</strong>";
-              colHead2 = document.createElement("p");
-              colHead2.innerHTML = "<strong>ID</strong>";
-
-              headDiv.appendChild(colHead);
-              headDiv.appendChild(colHead2);
-              start.appendChild(headDiv);
-              headDiv.classList.add("listResponse");
-              linebreak = document.createElement("hr");
-              start.appendChild(linebreak);
-              linebreak.style.backgroundColor = "#f1f1f1";
-              linebreak.style.height = "7px";
-              linebreak.style.border = "none";
-              
-              
-                
-              var array = JSON.parse(res);
 
               for(i=0; i<array.length; i +=2){
                 divCont = document.createElement("div");
@@ -182,6 +53,7 @@ if (!isset ($_SESSION["username"])){
                 editbtn = document.createElement("button");
                 editbtn.innerHTML = "Edit";
                 editbtn.dataset.id = array[i];
+                editbtn.dataset.crrent = "0";
                 divCont.appendChild(line);
                 line.appendChild(text);
                 divCont.appendChild(line2);
@@ -196,32 +68,139 @@ if (!isset ($_SESSION["username"])){
               }
               //event listener for the edit buttons
               //to do: need to remove this event listener each time after the display button is pressed
-              start.addEventListener("click", function(e){
-                if(e.target.tagName == "BUTTON"){
+              let cloneStart = start.cloneNode(true);
+              start.parentNode.replaceChild(cloneStart,start);
+
+              cloneStart.addEventListener("click", function(e){
+                if((e.target.tagName == "BUTTON") && (e.target.dataset.crrent == "0")){
                  let thistest= e.target.parentElement;
+                 console.log("this button is activating");
                  let thistestChildren = thistest.children;
                  let newinput = document.createElement("input");
                  thistext = thistestChildren[0].innerHTML;
+                 let newpara = thistestChildren[0].cloneNode(true);
                  thistest.removeChild(thistestChildren[0]);
+
+                 //add confirm button
+                 let confbtn = document.createElement("button");
+                 confbtn.innerHTML = "Confirm";
+                 confbtn.dataset.crrent = "notset";
+                 thistest.prepend(confbtn);
+                 confbtn.style.marginLeft = "0px";
+                 confbtn.style.marginRight= "14.3px";
                  
                  thistest.prepend(newinput);
                  newinput.value = thistext;
-                 console.log(thistext);
-                 
 
+                 //change edit button to cancel. also adds an event listener and disables the current event listener
+                 let thisEditbtn = thistestChildren[3];
+                 thisEditbtn.innerHTML = "Cancel";
+                 thisEditbtn.style.backgroundColor = "red";
 
-
-                 
-                 
-
-
-
+                 thisEditbtn.dataset.crrent = "1";
+                 thisEditbtn.addEventListener("click",function(e){
+                  if(thisEditbtn.dataset.crrent == "1");
+                  thisEditbtn.innerHTML = "Edit";
+                  thisEditbtn.style.backgroundColor = "#1f7a8c";
                   
+                  
+                  thistest.removeChild(thistestChildren[0]);
+                  thistest.prepend(newpara);
+                  thistest.removeChild(thistestChildren[1]);
+
+                 });
+                 confbtn.addEventListener("click", function(e){
+                  let values = {
+                    'stuName': newinput.value,
+                    'stuId': thistestChildren[2].innerHTML
+                  };
+                  $.ajax({
+                    type: 'post',
+                    url: '../../PHP/editStudent.php',
+                    data: values,
+                    success: function(res){
+
+                      let dropDown = document.getElementById("classID");
+                      let inputClass = dropDown.value;
+                      loadUpdateStuList(inputClass);
+                      
+                      
+
+                    }
+                  })
+
+                 });
+
+                 
+                 
+                }
+                else if ((e.target.tagName == "BUTTON") && (e.target.dataset.crrent == "1")){
+                  
+                  let cloneEditbtn = e.target.cloneNode(true);
+                  e.target.parentNode.replaceChild(cloneEditbtn,e.target);
+                  cloneEditbtn.dataset.crrent = "0";
+                  console.log("this is running and data ="+e.target.dataset.crrent);
+                 
                 }
 
               });
+
+
+
+
+
+    }
+    function loadUpdateStuList(classID){
+      let values = {
+        'classID': classID
+      };
+      console.log("got this far");
+    
+      
+      $.ajax({
+        type: 'post',
+        url: '../../PHP/manageStudentsFile.php',
+        data: values,
+        success: function(res){
+          var array = JSON.parse(res);
+          loadStuList(array);
+
+        }
+      })
+
+    }
+    //getting data for drop down
+    //TODO use browser storage to determine if the class should be pre displayed
+    $.getJSON('../../PHP/populateManageStudents.php', function(data) {
+      
+      
+      let dropDown = document.getElementById("classID");
+
+      for(i=0; i<data.length; i++){
+        let option = document.createElement("option");
+        option.value = data[i];
+        option.innerHTML = data[i];
+        dropDown.appendChild(option);
+      }
+    });
+
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'post',
+            url: '../../PHP/manageStudentsFile.php',
+            data: $('form').serialize(),
+            success: function(res) {
+
+              var array = JSON.parse(res);
+              loadStuList(array);
+
               
-                
+              
+
+              
+               
             }
 
         });
