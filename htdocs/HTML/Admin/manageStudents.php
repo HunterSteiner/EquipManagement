@@ -34,9 +34,12 @@ if (!isset ($_SESSION["username"])){
               colHead.innerHTML = "<strong>Name</strong>";
               colHead2 = document.createElement("p");
               colHead2.innerHTML = "<strong>ID</strong>";
+              let colHead3= document.createElement("p");
+              colHead3.innerHTML = "<strong>Email</strong>";
 
               headDiv.appendChild(colHead);
               headDiv.appendChild(colHead2);
+              headDiv.appendChild(colHead3);
               start.appendChild(headDiv);
               headDiv.classList.add("listResponse");
               linebreak = document.createElement("hr");
@@ -321,9 +324,9 @@ if (!isset ($_SESSION["username"])){
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
         <a href="addEmployee.php">Add Employee</a>
-        <a href="addInventory.php">Add Inventory</a>
-        <a href="addClass.php">Add Class</a>
-        <a class="active" href="manageStudents.php">Manage Students</a>
+        <a href="manageInventory.php">Inventory</a>
+        <a href="manageClass.php">Classes</a>
+        <a class="active" href="manageStudents.php">Students</a>
         <div class= "subgroup">
         <?php
             echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';

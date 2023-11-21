@@ -19,7 +19,7 @@ if(!$conn)
     die("Connection Failed:" . mysqli_connect_error()); 
 }
 
-    $sql_query = "SELECT class_id FROM class WHERE active = 1";
+    $sql_query = "SELECT equipment_id, equipment_status, equipment_name FROM equipment WHERE active = 1";
 
     $result = mysqli_query($conn,$sql_query);
 
@@ -33,7 +33,9 @@ if(!$conn)
     else
     {
        while($row = mysqli_fetch_assoc($result)){
-        $stuList[] = $row["class_id"];
+        $stuList[] = $row["equipment_id"];
+        $stuList[] = $row["equipment_status"];
+        $stuList[] = $row["equipment_name"];
 
        }
 

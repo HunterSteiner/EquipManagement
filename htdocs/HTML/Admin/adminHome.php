@@ -24,9 +24,9 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
     <div class="menuBar">
         <a class ="active" href="adminHome.php">Home</a>
         <a href="addEmployee.php">Add Employee</a>
-        <a href="addInventory.php">Add Inventory</a>
-        <a href="addClass.php">Add Class</a>
-        <a href="manageStudents.php">Manage Students</a>
+        <a href="manageInventory.php">Inventory</a>
+        <a href="manageClass.php">Classes</a>
+        <a href="manageStudents.php">Students</a>
         <div class= "subgroup">
         <?php
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';

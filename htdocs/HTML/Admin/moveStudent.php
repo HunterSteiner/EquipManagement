@@ -77,9 +77,9 @@ if (!isset ($_SESSION["username"])){
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
         <a href="addEmployee.php">Add Employee</a>
-        <a href="addInventory.php">Add Inventory</a>
+        <a href="manageInventory.php">Inventory</a>
         <a href="addClass.php">Add Class</a>
-        <a class= "active" href="manageStudents.php">Manage Students</a>
+        <a class= "active" href="manageStudents.php">Students</a>
         <div class= "subgroup">
         <?php
             echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';

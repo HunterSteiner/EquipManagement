@@ -18,6 +18,11 @@ if (!isset ($_SESSION["username"])){
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
+    let backArrow = document.getElementById("backbtn");
+    backArrow.addEventListener("click",function(){
+        window.location.href= "manageInventory.php";
+
+    });
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -53,9 +58,9 @@ if (!isset ($_SESSION["username"])){
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
         <a href="addEmployee.php">Add Employee</a>
-        <a class= "active" href="addInventory.php">Add Inventory</a>
-        <a href="addClass.php">Add Class</a>
-        <a href="manageStudents.php">Manage Students</a>
+        <a class= "active" href="manageInventory.php">Inventory</a>
+        <a href="manageClass.php">Classes</a>
+        <a href="manageStudents.php">Students</a>
         <div class= "subgroup">
         <?php
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
@@ -66,6 +71,7 @@ if (!isset ($_SESSION["username"])){
 </div>
 <form>
   <div class="container">
+  <button type="button" name="back" class="backbtn" id="backbtn"></button>
     <h1>Add Inventory</h1>
     <p>Please fill in this form to create an inventory item.</p>
     <hr>
