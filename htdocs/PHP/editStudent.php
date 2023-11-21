@@ -21,10 +21,12 @@ if(!$conn)
 //  getting values from the form submitted
     $stu_id = $_POST['stuId'];
     $stu_name = $_POST['stuName'];
+    $stu_email = $_POST['stuEmail'];
+    $stu_new_id = $_POST['newId'];
 
     
 
-    $sql_query = "UPDATE student SET student_name = '$stu_name' WHERE student_id = '$stu_id'"; 
+    $sql_query = "UPDATE student SET student_name = '$stu_name', student_email = '$stu_email', student_id = '$stu_new_id' WHERE student_id = '$stu_id'"; 
     
 
     if (mysqli_query($conn,$sql_query))

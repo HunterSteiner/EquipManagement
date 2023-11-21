@@ -19,15 +19,13 @@ if(!$conn)
 }
 
 //  getting values from the form submitted
-    $student_id = $_POST['studentID'];
-    $student_name = $_POST['studentName'];
-    $class_id = $_SESSION['selectedClass'];
-    $student_email = $_POST['studentEmail'];
+    $stu_id = $_POST['stuId'];
+    $class_id = $_POST['newClassId'];
 
     
 
-    $sql_query = "INSERT INTO student (student_id,student_name,student_email,class_id)
-    VALUES ('$student_id','$student_name','$student_email','$class_id')";
+    $sql_query = "UPDATE student SET class_id = '$class_id' WHERE student_id = '$stu_id'"; 
+    
 
     if (mysqli_query($conn,$sql_query))
     {

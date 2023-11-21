@@ -18,6 +18,12 @@ if (!isset ($_SESSION["username"])){
 <script>
   //after dom is loaded
   $(function () {
+    if(sessionStorage.getItem("saveSpot") == "set"){
+      loadUpdateStuList(sessionStorage.getItem("lastSelectedClass"));
+      
+      
+    }
+    
 
     function loadStuList(array){
 
@@ -39,7 +45,7 @@ if (!isset ($_SESSION["username"])){
               linebreak.style.height = "7px";
               linebreak.style.border = "none";
 
-              for(i=0; i<array.length; i +=2){
+              for(i=0; i<array.length; i +=3){
                 divCont = document.createElement("div");
                 divCont.dataset.id = array[i];
                 
@@ -50,6 +56,8 @@ if (!isset ($_SESSION["username"])){
                 text = document.createTextNode(array[i+1]);
                 line2 = document.createElement("p");
                 text2= document.createTextNode(array[i]);
+                line3 = document.createElement("P");
+                text3 = document.createTextNode(array[i+2])
                 editbtn = document.createElement("button");
                 editbtn.innerHTML = "Edit";
                 editbtn.dataset.id = array[i];
@@ -58,16 +66,19 @@ if (!isset ($_SESSION["username"])){
                 line.appendChild(text);
                 divCont.appendChild(line2);
                 line2.appendChild(text2);
+                divCont.appendChild(line3);
+                line3.appendChild(text3);
                 divCont.appendChild(editbtn);
 
                 start.appendChild(divCont);
                 divCont.classList.add("listResponse");
+                divCont.style.height = "30px";
                 linebreak = document.createElement("hr");
                 start.appendChild(linebreak);
 
               }
               //event listener for the edit buttons
-              //to do: need to remove this event listener each time after the display button is pressed
+              
               let cloneStart = start.cloneNode(true);
               start.parentNode.replaceChild(cloneStart,start);
 
@@ -76,26 +87,73 @@ if (!isset ($_SESSION["username"])){
                  let thistest= e.target.parentElement;
                  console.log("this button is activating");
                  let thistestChildren = thistest.children;
+
                  let newinput = document.createElement("input");
                  thistext = thistestChildren[0].innerHTML;
                  let newpara = thistestChildren[0].cloneNode(true);
+
+                 let newinput2 = document.createElement("input");
+                 thistext2 = thistestChildren[1].innerHTML;
+                 let newpara2 = thistestChildren[1].cloneNode(true);
+
+                 let newinput3 = document.createElement("input");
+                 thistext3 = thistestChildren[2].innerHTML;
+                 let newpara3 = thistestChildren[2].cloneNode(true);
+
+                 thistest.removeChild(thistestChildren[0]);
+                 thistest.removeChild(thistestChildren[0]);
                  thistest.removeChild(thistestChildren[0]);
 
-                 //add confirm button
+
                  let confbtn = document.createElement("button");
                  confbtn.innerHTML = "Confirm";
                  confbtn.dataset.crrent = "notset";
+
+                 let deletebtn = document.createElement("button");
+                 deletebtn.innerHTML = "Remove";
+                 deletebtn.dataset.crrent = "notset";
+                 
+
+                 let movebtn = document.createElement("button");
+                 movebtn.innerHTML = "Move";
+                 movebtn.dataset.crrent = "notset";
+                 
+
+                 thistest.prepend(deletebtn);
+                 deletebtn.style.marginLeft = "20px";
+                 deletebtn.style.backgroundColor="red";
+                 deletebtn.style.marginLeft = "0px";
+
+                 thistest.prepend(movebtn);
+                 movebtn.style.backgroundColor= "#022b3a";
+                 movebtn.style.marginLeft = "0px";
+                 movebtn.style.marginRight= "14.3px";
+
                  thistest.prepend(confbtn);
                  confbtn.style.marginLeft = "0px";
                  confbtn.style.marginRight= "14.3px";
+                 confbtn.style.backgroundColor="#022b3a";
                  
+                 thistest.prepend(newinput3);
+                 newinput3.value = thistext3;
+                 newinput3.classList.add("newinput");
+                 newinput3.style.marginLeft = "130px";
+                 newinput3.style.width = "210px";
+
+                 thistest.prepend(newinput2);
+                 newinput2.value = thistext2;
+                 newinput2.classList.add("newinput");
+                 newinput2.style.width = "120px";
+
                  thistest.prepend(newinput);
                  newinput.value = thistext;
+                 newinput.classList.add("newinput");
+                 newinput.style.marginLeft = "16px";
 
                  //change edit button to cancel. also adds an event listener and disables the current event listener
-                 let thisEditbtn = thistestChildren[3];
+                 let thisEditbtn = thistestChildren[6];
                  thisEditbtn.innerHTML = "Cancel";
-                 thisEditbtn.style.backgroundColor = "red";
+                 thisEditbtn.style.backgroundColor = "#022b3a";
 
                  thisEditbtn.dataset.crrent = "1";
                  thisEditbtn.addEventListener("click",function(e){
@@ -105,14 +163,26 @@ if (!isset ($_SESSION["username"])){
                   
                   
                   thistest.removeChild(thistestChildren[0]);
+                  thistest.removeChild(thistestChildren[0]);
+                  thistest.removeChild(thistestChildren[0]);
+                  thistest.removeChild(thistestChildren[0]);
+                  thistest.removeChild(thistestChildren[0]);
+                  thistest.removeChild(thistestChildren[0]);
+                  
+
+                  thistest.prepend(newpara3);
+                  thistest.prepend(newpara2);
                   thistest.prepend(newpara);
-                  thistest.removeChild(thistestChildren[1]);
+
+                  
 
                  });
                  confbtn.addEventListener("click", function(e){
                   let values = {
                     'stuName': newinput.value,
-                    'stuId': thistestChildren[2].innerHTML
+                    'stuId': newpara2.innerHTML,
+                    'stuEmail': newinput3.value,
+                    'newId': newinput2.value
                   };
                   $.ajax({
                     type: 'post',
@@ -130,6 +200,36 @@ if (!isset ($_SESSION["username"])){
                   })
 
                  });
+                 deletebtn.addEventListener("click", function(e){
+                  let userResponse = confirm("Are you sure you want to remove this student?");
+                  if(userResponse){
+                  let values = {
+                    'stuId': newpara2.innerHTML
+                  }
+                  $.ajax({
+                    type: 'post',
+                    url: '../../PHP/removeStudent.php',
+                    data: values,
+                    success: function(res){
+                      let dropDown = document.getElementById("classID");
+                      let inputClass = dropDown.value;
+                      loadUpdateStuList(inputClass);
+                      
+
+                    }
+
+                  })
+                }
+
+                
+
+                 });
+                 movebtn.addEventListener("click", function(e){
+                  sessionStorage.setItem("selectedStuId", newpara2.innerHTML);
+                  sessionStorage.setItem("selectedStuName", newpara.innerHTML);
+                  window.location.href= "moveStudent.php";
+
+                 })
 
                  
                  
@@ -182,6 +282,11 @@ if (!isset ($_SESSION["username"])){
         option.innerHTML = data[i];
         dropDown.appendChild(option);
       }
+      if(sessionStorage.getItem("saveSpot") == "set"){
+        dropDown.value = sessionStorage.getItem("lastSelectedClass");
+        sessionStorage.setItem("saveSpot", "notset");
+      }
+      
     });
 
     $('form').on('submit', function (e) {
@@ -195,6 +300,8 @@ if (!isset ($_SESSION["username"])){
 
               var array = JSON.parse(res);
               loadStuList(array);
+              let dropDown = document.getElementById("classID");
+              sessionStorage.setItem("lastSelectedClass", dropDown.value);
 
               
               

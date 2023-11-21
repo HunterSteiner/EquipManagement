@@ -21,7 +21,7 @@ if(!$conn)
     $class_id = $_POST['classID'];
     
 
-    $sql_query = "SELECT student_id, student_name FROM student WHERE class_id = '$class_id'";
+    $sql_query = "SELECT student_id, student_name, student_email FROM student WHERE class_id = '$class_id' AND active = 1";
 
     $result = mysqli_query($conn,$sql_query);
 
@@ -43,6 +43,8 @@ if(!$conn)
         $stuList[] = $row["student_id"];
 
         $stuList[] = $row["student_name"];
+
+        $stuList[] = $row["student_email"];
         
 
        }

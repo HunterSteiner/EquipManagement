@@ -25,35 +25,49 @@ if (!isset ($_SESSION["username"])){
         sessionStorage.setItem("saveSpot", "set");
 
     });
+    $.getJSON('../../PHP/populateManageStudents.php', function(data) {
+      
+      
+      let dropDown = document.getElementById("classID");
 
-    $('form').on('submit', function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            type: 'post',
-            url: '../../PHP/addStudentIn.php',
-            data: $('form').serialize(),
-            success: function(res) {
-              //This is the section that will run after running the php file. res is the data response from the php file.
-
-              alert("New student created.");
-
-             //the following lines just resets the 2 input boxes after hitting submit
-              input1 = document.getElementById("studentID");
-              input1.value = "";
-
-              input2 = document.getElementById("studentName");
-              input2.value = "";
-
-              input3 = document.getElementById("studentEmail");
-              input3.value = "";
-
-              }
-              
-                
-
-        });
+      for(i=0; i<data.length; i++){
+        let option = document.createElement("option");
+        option.value = data[i];
+        option.innerHTML = data[i];
+        dropDown.appendChild(option);
+      }
+      let studentLine = document.getElementById("studentDesc");
+      let newstring = "Selected Student: <strong>"+ sessionStorage.getItem("selectedStuName") + "</strong>"
+      studentLine.innerHTML = newstring;
     });
+    let movebutton = document.getElementById("moveStudent");
+    
+
+    movebutton.addEventListener("click", function(){
+      let dropDown = document.getElementById("classID");
+      let values = {
+        'stuId': sessionStorage.getItem("selectedStuId"),
+        'newClassId': dropDown.value
+      };
+      $.ajax({
+        type: 'post',
+        url: '../../PHP/moveStudentFile.php',
+        data: values,
+        success: function(res){
+          alert("Student moved.");
+          sessionStorage.setItem("saveSpot", "set");
+          
+          window.location.href= "manageStudents.php";
+          
+        }
+      })
+
+
+    })
+
+
+
+    
 
 });
 </script>
@@ -77,23 +91,19 @@ if (!isset ($_SESSION["username"])){
 <form>
   <div class="container">
     <button type="button" name="back" class="backbtn" id="backbtn"></button>
-    <h1>Add Student</h1>
-    <p>Please fill in this form to add a student to <?php echo $_SESSION["selectedClass"];?>.</p>
+    <h1>Move Student</h1>
+    <p>Select which class to move the student.</p>
     <hr>
+    <p id = "studentDesc">Selected Student: </p>
     
 
-    <label for="studentID">Student ID</label>
-    <input type="text" placeholder="Enter Student ID" name="studentID" id="studentID" required>
-
-    <label for="studentName">Student Name</label>
-    <input type="text" placeholder="Enter Student Name" name="studentName" id="studentName" required>
-
-    <label for="studentEmail">Student Email</label>
-    <input type="text" placeholder="Enter Student Email" name="studentEmail" id="studentEmail" required>
+    <label for="classID">New Class</label>
+    <select name="classID" placeholder ="Select" id = "classID">
+    </select>
 
     <hr>
 
-    <button type="submit" name="save" class="registerbtn">Add</button>
+    <button type="button" name="save" id="moveStudent" class="registerbtn">Move</button>
   </div>
   
   

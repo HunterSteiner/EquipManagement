@@ -241,3 +241,12 @@ footer>p{
 .backbtn:hover{
   opacity:1.0;
 }
+.newinput{
+  color:#022b3a;
+  width:180px;
+  font-size: 20px;
+  margin-left:70px;
+  padding-bottom:5px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
