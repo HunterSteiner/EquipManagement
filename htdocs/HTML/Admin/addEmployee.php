@@ -20,6 +20,11 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
+    let backArrow = document.getElementById("backbtn");
+    backArrow.addEventListener("click",function(){
+        window.location.href= "manageEmployee.php";
+
+    });
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -61,7 +66,7 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
 <body>
   <div class="menuBar">
     <a href="adminHome.php">Home</a>
-    <a class = "active" href="addEmployee.php">Add Employee</a>
+    <a class = "active" href="manageEmployee.php">Employees</a>
     <a href="manageInventory.php">Inventory</a>
     <a href="manageClass.php">Classes</a>
     <a href="manageStudents.php">Students</a>
@@ -76,6 +81,7 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
 
 <form action="../../PHP/addEmployeeIn.php" method="POST">
   <div class="container">
+  <button type="button" name="back" class="backbtn" id="backbtn"></button>
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>

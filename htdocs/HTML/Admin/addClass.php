@@ -58,7 +58,7 @@ if (!isset ($_SESSION["username"])){
 <body>
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
-        <a href="addEmployee.php">Add Employee</a>
+        <a href="manageEmployee.php">Employees</a>
         <a href="manageInventory.php">Inventory</a>
         <a class= "active" href="manageClass.php">Classes</a>
         <a href="manageStudents.php">Students</a>

@@ -76,7 +76,7 @@ if (!isset ($_SESSION["username"])){
 <body>
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
-        <a href="addEmployee.php">Add Employee</a>
+        <a href="manageEmployee.php">Employees</a>
         <a href="manageInventory.php">Inventory</a>
         <a href="addClass.php">Add Class</a>
         <a class= "active" href="manageStudents.php">Students</a>

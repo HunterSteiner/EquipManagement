@@ -1,4 +1,3 @@
-
 <?php
 
 session_start();
@@ -20,25 +19,34 @@ if (!isset ($_SESSION["username"])){
   $(function () {
     let backArrow = document.getElementById("backbtn");
     backArrow.addEventListener("click",function(){
-        window.location.href= "manageInventory.php";
+        window.location.href= "manageEmployee.php";
 
     });
+    let passwordFillLine = document.getElementById("fillPasswordLine");
+    let newString = "Please fill in a new password for <strong>"+ sessionStorage.getItem("selectedEmployee") + "</strong>";
+    passwordFillLine.innerHTML = newString;
+    
+    let submitButton = document.getElementById("submitButton");
+    submitButton.addEventListener("click", function(){
+        let passwordVal = document.getElementById("passwordVal");
 
-    $('form').on('submit', function (e) {
-        e.preventDefault();
-
+        let values = {
+                      'employeeId': sessionStorage.getItem("selectedEmployee"),
+                      'employeePassword': passwordVal.value
+                    };
         $.ajax({
             type: 'post',
-            url: '../../PHP/addInventoryIn.php',
-            data: $('form').serialize(),
+            url: '../../PHP/changePasswordFile.php',
+            data: values,
             success: function(res) {
+                console.log(res);
 
-              alert("New Equipment Item created.");
+              alert("Password Changed.");
 
-              input1 = document.getElementById("equipID");
+              input1 = document.getElementById("passwordVal");
               input1.value = "";
 
-              input2 = document.getElementById("equipName");
+              input2 = document.getElementById("passwordConf");
               input2.value = "";
 
               
@@ -48,6 +56,7 @@ if (!isset ($_SESSION["username"])){
                 
 
         });
+
     });
 
 });
@@ -57,8 +66,8 @@ if (!isset ($_SESSION["username"])){
 <body>
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
-        <a href="manageEmployee.php">Employees</a>
-        <a class= "active" href="manageInventory.php">Inventory</a>
+        <a class= "active" href="manageEmployee.php">Employees</a>
+        <a href="manageInventory.php">Inventory</a>
         <a href="manageClass.php">Classes</a>
         <a href="manageStudents.php">Students</a>
         <div class= "subgroup">
@@ -72,20 +81,20 @@ if (!isset ($_SESSION["username"])){
 <form>
   <div class="container">
   <button type="button" name="back" class="backbtn" id="backbtn"></button>
-    <h1>Add Inventory</h1>
-    <p>Please fill in this form to create an inventory item.</p>
+    <h1>Change Password</h1>
+    <p id = "fillPasswordLine">Please fill in a new password</p>
     <hr>
     
 
-    <label for="equipID">Equipment ID</label>
-    <input type="text" placeholder="Enter Equipment ID" name="equipID" id="equipID" required>
+    <label for="passwordVal">New Password:</label>
+    <input type="password" placeholder="Enter New Password" name="passwordVal" id="passwordVal" required>
 
-    <label for="equipName">Equipment Name</label>
-    <input type="text" placeholder="Enter Equipment Name" name="equipName" id="equipName" required>
+    <label for="passwordConf">Equipment Name</label>
+    <input type="password" placeholder="Enter New Password" name="passwordConf" id="passwordConf" required>
 
     <hr>
 
-    <button type="submit" name="save" class="registerbtn">Add</button>
+    <button type="button" name="save" class="registerbtn" id = "submitButton">Change</button>
   </div>
   
   

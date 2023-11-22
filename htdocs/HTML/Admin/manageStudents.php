@@ -28,6 +28,10 @@ if (!isset ($_SESSION["username"])){
     function loadStuList(array){
 
       var start = document.getElementById("loadLocation");
+              let hiddenHeader = document.getElementById("hidden1");
+              let hiddenLink = document.getElementById("hidden2");
+              hiddenHeader.removeAttribute("hidden");
+              hiddenLink.removeAttribute("hidden");
               start.innerHTML = "";
               headDiv = document.createElement("div");
               colHead = document.createElement("p");
@@ -305,6 +309,10 @@ if (!isset ($_SESSION["username"])){
               loadStuList(array);
               let dropDown = document.getElementById("classID");
               sessionStorage.setItem("lastSelectedClass", dropDown.value);
+              let hiddenHeader = document.getElementById("hidden1");
+              let hiddenLink = document.getElementById("hidden2");
+              hiddenHeader.removeAttribute("hidden");
+              hiddenLink.removeAttribute("hidden");
 
               
               
@@ -323,7 +331,7 @@ if (!isset ($_SESSION["username"])){
 <body>
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
-        <a href="addEmployee.php">Add Employee</a>
+        <a href="manageEmployee.php">Employees</a>
         <a href="manageInventory.php">Inventory</a>
         <a href="manageClass.php">Classes</a>
         <a class="active" href="manageStudents.php">Students</a>
@@ -349,8 +357,8 @@ if (!isset ($_SESSION["username"])){
 </form>
 <div class= "listGroup">
 
- <h4 >Student List:</h4>
- <a href="addStudent.php">Add Students</a>
+ <h4 id = "hidden1" hidden>Student List:</h4>
+ <a href="addStudent.php" id = "hidden2" hidden>Add Students</a>
  
 </div>
  <div id="loadLocation" class = "loadLocation">

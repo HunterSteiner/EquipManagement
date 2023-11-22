@@ -19,7 +19,7 @@ if (!isset ($_SESSION["username"])){
     //after dom is loaded
     $(function (){
         function loadClasses(){
-            $.getJSON('../../PHP/populateManageClass.php', function(data) {
+            $.getJSON('../../PHP/populateManageEmployee.php', function(data) {
               let array = data;
               var start = document.getElementById("loadLocation");
               start.innerHTML = "";
@@ -28,9 +28,13 @@ if (!isset ($_SESSION["username"])){
               colHead.innerHTML = "<strong>ID</strong>";
               colHead2 = document.createElement("p");
               colHead2.innerHTML = "<strong>Name</strong>";
+              let colhead3 = document.createElement("p");
+              colhead3.innerHTML = "<strong>Status</strong>";
 
               headDiv.appendChild(colHead);
               headDiv.appendChild(colHead2);
+              headDiv.appendChild(colhead3);
+              colhead3.style.marginLeft = "50px";
               start.appendChild(headDiv);
               headDiv.classList.add("listResponse");
               linebreak = document.createElement("hr");
@@ -40,14 +44,24 @@ if (!isset ($_SESSION["username"])){
               linebreak.style.border = "none";
 
             
-            for(i=0; i<array.length; i +=2){
+            for(i=0; i<array.length; i +=3){
                 divCont = document.createElement("div");
                 divCont.dataset.id = array[i];
                 
                 line = document.createElement("p");
                 text = document.createTextNode(array[i]);
+
                 line2 = document.createElement("p");
                 text2= document.createTextNode(array[i+1]);
+
+                line3 = document.createElement("p");
+                let text3 = document.createTextNode("placeholder");
+                console.log(array[i+1]);
+                if(array[i+2] == 1){
+                    text3= document.createTextNode("Admin");
+                }else{
+                    text3= document.createTextNode("Employee");
+                }
                 
                 let editbtn = document.createElement("button");
                 editbtn.innerHTML = "Edit";
@@ -59,6 +73,8 @@ if (!isset ($_SESSION["username"])){
                 divCont.appendChild(line2);
                 line2.appendChild(text2);
                 line2.style.width = "300px";
+                divCont.appendChild(line3);
+                line3.appendChild(text3);
                 divCont.appendChild(editbtn);
 
                 start.appendChild(divCont);
@@ -83,6 +99,11 @@ if (!isset ($_SESSION["username"])){
 
                     let newpara2 = thistestChildren[0].cloneNode(true);
 
+                    let newpara3 = thistestChildren[2].cloneNode(true);
+
+                    sessionStorage.setItem("selectedEmployee",newpara2.innerHTML);
+
+                    thistest.removeChild(thistestChildren[0]);
                     thistest.removeChild(thistestChildren[0]);
                     thistest.removeChild(thistestChildren[0]);
 
@@ -93,6 +114,15 @@ if (!isset ($_SESSION["username"])){
                     let deletebtn = document.createElement("button");
                     deletebtn.innerHTML = "Remove";
                     deletebtn.dataset.crrent = "notset";
+
+                    let swapbtn = document.createElement("button");
+                    swapbtn.innerHTML = "SwapStatus";
+                    swapbtn.dataset.crrent = "notset";
+
+                    let changePassbtn = document.createElement("button");
+                    changePassbtn.innerHTML = "Change Password";
+                    changePassbtn.dataset.crrent = "notset";
+                    
                  
                  
                     thistest.prepend(deletebtn);
@@ -100,22 +130,43 @@ if (!isset ($_SESSION["username"])){
                     deletebtn.style.backgroundColor="red";
                     deletebtn.style.marginLeft = "0px";
 
+                    thistest.prepend(changePassbtn);
+                    changePassbtn.style.marginRight= "10px";
+                    changePassbtn.style.backgroundColor = "#022b3a";
+                    changePassbtn.style.marginLeft = "0px";
+
+                    thistest.prepend(swapbtn);
+                    swapbtn.style.marginLeft = "0px";
+                    swapbtn.style.backgroundColor = "#022b3a"
+                    swapbtn.style.marginRight = "10px";
+                    
+
+
+                    
+
+                    thistest.prepend(newpara3);
+                    
+                    newpara3.style.marginRight = "0px";
+                    newpara3.style.width = "130px";
+                    
 
                     thistest.prepend(confbtn);
                     confbtn.style.marginLeft = "0px";
-                    confbtn.style.marginRight= "14.3px";
+                    confbtn.style.marginRight= "45.34px";
                     confbtn.style.backgroundColor="#022b3a";
 
                     thistest.prepend(newinput);
                     newinput.value = thistext;
                     newinput.classList.add("newinput");
                     newinput.style.marginLeft = "16px";
-                    newinput.style.width = "300px";
+                    newinput.style.width = "180px";
+                    newinput.style.marginRight = "0px";
 
                     thistest.prepend(newpara2);
 
+
                     //change edit button to cancel. also adds an event listener and disables the current event listener
-                    let thisEditbtn = thistestChildren[4];
+                    let thisEditbtn = thistestChildren[7];
                     thisEditbtn.innerHTML = "Cancel";
                     thisEditbtn.style.backgroundColor = "#022b3a";
                     thisEditbtn.dataset.crrent = "1";
@@ -126,8 +177,12 @@ if (!isset ($_SESSION["username"])){
                             thistest.removeChild(thistestChildren[0]);
                             thistest.removeChild(thistestChildren[0]);
                             thistest.removeChild(thistestChildren[0]);
-                            
+                            thistest.removeChild(thistestChildren[0]);
+                            thistest.removeChild(thistestChildren[0]);
+                            thistest.removeChild(thistestChildren[0]);
 
+                            
+                            thistest.prepend(newpara3);
                             thistest.prepend(newpara);
                             thistest.prepend(newpara2);
 
@@ -141,14 +196,15 @@ if (!isset ($_SESSION["username"])){
                         }
                     });
                     confbtn.addEventListener("click", function(e){
+
                         
                     let values = {
-                      'classId': newpara2.innerHTML,
-                      'className': newinput.value
+                      'employeeId': newpara2.innerHTML,
+                      'employeeName': newinput.value
                     };
                     $.ajax({
                       type: 'post',
-                      url: '../../PHP/editClass.php',
+                      url: '../../PHP/editEmployee.php',
                       data: values,
                       success: function(res){
                         loadClasses();
@@ -162,11 +218,11 @@ if (!isset ($_SESSION["username"])){
                   if(userResponse){
                     console.log(newpara2.innerHTML);
                   let values = {
-                    'classId': newpara2.innerHTML
+                    'employeeId': newpara2.innerHTML
                   };
                   $.ajax({
                     type: 'post',
-                    url: '../../PHP/removeClass.php',
+                    url: '../../PHP/removeEmployee.php',
                     data: values,
                     success: function(res){
                       
@@ -179,6 +235,40 @@ if (!isset ($_SESSION["username"])){
                 }
 
                 
+
+                 });
+                 swapbtn.addEventListener("click", function(e){
+                    let numbStatus = 99;
+                    if(newpara3.innerHTML == "Employee"){
+                        numbStatus = 1;
+                    }else{
+                        numbStatus = 0;
+                    }
+                    console.log(numbStatus);
+                    let values = {
+                    'employeeId': newpara2.innerHTML,
+                    'employeeRole': numbStatus
+                  };
+                  $.ajax({
+                    type: 'post',
+                    url: '../../PHP/swapEmployee.php',
+                    data: values,
+                    success: function(res){
+
+                        loadClasses();
+                      
+                        
+                      
+
+                    }
+
+                  })
+
+
+                 });
+                 changePassbtn.addEventListener("click", function(){
+                  
+                  window.location.href= "changePassword.php";
 
                  });
 
@@ -214,9 +304,9 @@ if (!isset ($_SESSION["username"])){
 <body>
   <div class="menuBar">
         <a href="adminHome.php">Home</a>
-        <a href="manageEmployee.php">Employees</a>
+        <a class="active" href="manageEmployee.php">Employees</a>
         <a href="manageInventory.php">Inventory</a>
-        <a class="active" href="manageClass.php">Classes</a>
+        <a href="manageClass.php">Classes</a>
         <a href="manageStudents.php">Students</a>
         <div class= "subgroup">
         <?php
@@ -229,15 +319,15 @@ if (!isset ($_SESSION["username"])){
 <div class="extended-form">
 <form>
   <div class="container">
-    <h1>Manage Classes</h1>
-    <p>All current classes found below:</p>
+    <h1>Manage Employees</h1>
+    <p>All current employees found below:</p>
     <hr>
   </div>
 </form>
 <div class= "listGroup">
 
- <h4 >Class List:</h4>
- <a href="addClass.php">Add Classes</a>
+ <h4 >Employee List:</h4>
+ <a href="addEmployee.php">Add Employee</a>
  
 </div>
  <div id="loadLocation" class = "loadLocation">
