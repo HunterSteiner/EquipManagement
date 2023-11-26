@@ -14,10 +14,125 @@ if (!isset ($_SESSION["username"])){
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../CSS/addEmployee.css" />
+<link rel="stylesheet" href="../../CSS/checkout.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
+
+    function loadList(){
+    console.log("hello");
+    $.getJSON('../../PHP/populateCheckout.php', function(data) {
+      let array = data;
+      let loadLocation = document.getElementById("loadLocation");
+      
+      
+      for(let i =0; i<array.length; i+=2){
+        let line1 = document.createElement("p");
+        let line2 = document.createElement("p");
+        let listingGroup = document.createElement("div");
+        listingGroup.classList.add("listGroup");
+        line1.innerHTML = array[i];
+        line2.innerHTML = array[i+1];
+
+        listingGroup.appendChild(line1);
+        listingGroup.appendChild(line2);
+        loadLocation.appendChild(listingGroup);
+
+        //styles
+        line1.style.marginTop = "0px";
+        line1.style.marginLeft = "5px";
+
+        line2.style.marginTop = "0px";
+        line2.style.marginLeft = "auto";
+      }
+    });
+  }
+  function loadDropDown(){
+    $.getJSON('../../PHP/populateManageStudents.php', function(data){
+      let dropDown = document.getElementById("classID");
+      console.log(dropDown);
+      for(i=0; i<data.length; i++){
+        let option = document.createElement("option");
+        option.value = data[i];
+        option.innerHTML = data[i];
+        dropDown.appendChild(option);
+      }
+      displayBtn.click();
+      
+    });
+  }
+  loadList();
+  loadDropDown();
+  let displayBtn = document.getElementById("displayBtn");
+  displayBtn.addEventListener("click", function(){
+    let dropDown = document.getElementById("classID");
+    let classID = dropDown.value;
+    console.log(classID);
+
+    let values = {
+        'classID': classID
+      };
+      
+    
+      $.ajax({
+        type: 'post',
+        url: '../../PHP/manageStudentsFile.php',
+        data: values,
+        success: function(res){
+          var array = JSON.parse(res);
+          console.log(array.length);
+          let loadSpot = document.getElementById("subsection1");
+          loadSpot.innerHTML = "";
+          let headerParagraph = document.createElement("p");
+          headerParagraph.innerHTML = "<strong>(ID,Name)</strong>";
+          headerParagraph.style.marginLeft = "197px";
+          headerParagraph.style.marginTop = "0px";
+          loadSpot.appendChild(headerParagraph);
+          console.log(loadSpot);
+
+          let loadLength = array.length / 3;
+          let j = 0;
+
+          for(let i = 0; i<loadLength; i+=2){
+            console.log("this is running");
+           let loadDiv = document.createElement("div");
+           let line1 = document.createElement("p");
+           line1.innerHTML = array[j] + ", "+ array[j+1];
+            loadDiv.appendChild(line1);
+            line1.style.borderRight = "3px groove #f1f1f1";
+            line1.style.width = "250px";
+            line1.style.marginTop = "0px";
+            line1.style.marginBottom = "0px";
+            line1.style.paddingBottom = "8px";
+            line1.style.borderBottom = "3px groove #f1f1f1";
+
+            if(i < loadLength-1){
+              let line2 = document.createElement("p");
+              line2.innerHTML = array[j+3] + ", "+ array[j+4];
+              loadDiv.appendChild(line2);
+              line2.style.marginLeft = "0px";
+              line2.style.paddingLeft= "20px";
+              line2.style.marginTop = "0px";
+              line2.style.marginBottom = "0px";
+              line2.style.borderBottom = "3px groove #f1f1f1";
+              line2.style.width = "250px";
+            }
+            loadSpot.appendChild(loadDiv);
+            loadDiv.classList.add("subListing");
+
+            j = j+6;
+
+
+          }
+
+
+        }
+      });
+
+
+
+  });
+  
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -61,17 +176,45 @@ if (!isset ($_SESSION["username"])){
 </div>
 <form>
   <div class="container">
+    <!-- left side of page -->
+    <div class = "section1">
     <h1>Check-Out</h1>
     <p>Please fill in this form to check-out an item</p>
     <label for="equipmentid">Equipment ID</label>
     <input type="text" placeholder="Enter Equipment ID" name="equipmentid" id="equipmentid" required>
-
     <label for="studentid">Student ID</label>
     <input type="text" placeholder="Enter Student ID" name="studentid" id="studentid" required>
-
+    <button type="submit" name="save" class="registerbtn">Check-Out</button>
+    <hr>
+    <select id = "classID">
+    </select>
+    <button type="button" class="displayBtn" id= "displayBtn">Display Students</button>
+    <div class = "subsection1" id = "subsection1">
     
 
-    <button type="submit" name="save" class="registerbtn">Check-Out</button>
+
+    </div>
+
+    
+    </div>
+    
+    <!-- right side of page -->
+    <div class = "section2">
+    <h1>Available</h1>
+      <p> Below is a list of all equipment available for checkout </p>
+      <div class = "loadLocation" id = "loadLocation">
+        <div class= "heading">
+          <p class= "first"> <strong>Name</strong> </p>
+          <p class= "second"> <strong>ID</strong> </p> 
+        </div>
+        <hr>
+
+
+
+      </div>
+    </div>
+  
+  
   </div>
   
   

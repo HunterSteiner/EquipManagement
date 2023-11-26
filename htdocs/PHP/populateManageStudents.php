@@ -5,7 +5,7 @@ $password="";
 $database_name="checkoutdb";
 
 session_start();
-if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
+if ((!isset ($_SESSION["username"]))){
     header ("Location: ../../index.html");
     die;
 } 
