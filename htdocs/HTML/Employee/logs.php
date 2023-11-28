@@ -20,20 +20,45 @@ if (!isset ($_SESSION["username"])){
 <script>
   $(function () {
 
-    function loadList(){
-    console.log("hello");
-    $.getJSON('../../PHP/populateLogs.php', function(data) {
-        let array = data;
-        console.log(array[0]);
-        console.log(array[1]);
-        console.log(array[2]);
-        console.log(array[3]);
-        console.log(array[4]);
-        console.log(array[5]);
-        
+    function loadList(array){
+        recordFill = array.length;
         let pageTable = document.getElementById("pageTable");
+        pageTable.innerHTML = "";
+        pageNum.innerHTML = pageNumVal;
 
-        for(let i = 0; i <array.length; i+=6){
+        let tableHead1 = document.createElement("th");
+        tableHead1.innerHTML = "Transaction ID";
+        let tableHead2 = document.createElement("th");
+        tableHead2.innerHTML = "Type";
+        let tableHead3 = document.createElement("th");
+        tableHead3.innerHTML = "Date";
+        let tableHead4 = document.createElement("th");
+        tableHead4.innerHTML = "Employee ID";
+        let tableHead5 = document.createElement("th");
+        tableHead5.innerHTML = "Equipment ID";
+        let tableHead6 = document.createElement("th");
+        tableHead6.innerHTML = "Student ID";
+        let tableHead7 = document.createElement("th");
+        tableHead7.innerHTML = "Student Name";
+        let tableHead8 = document.createElement("th");
+        tableHead8.innerHTML = "Student Email";
+        let tableHead9 = document.createElement("th");
+        tableHead9.innerHTML = "Class ID";
+
+
+        pageTable.appendChild(tableHead1);
+        pageTable.appendChild(tableHead2);
+        pageTable.appendChild(tableHead3);
+        pageTable.appendChild(tableHead4);
+        pageTable.appendChild(tableHead5);
+        pageTable.appendChild(tableHead6);
+        pageTable.appendChild(tableHead7);
+        pageTable.appendChild(tableHead8);
+        pageTable.appendChild(tableHead9);
+
+
+
+        for(let i = 0; i <array.length; i+=9){
             let tableRow = document.createElement("tr");
             let data1 = document.createElement("td");
             let data2 = document.createElement("td");
@@ -41,6 +66,9 @@ if (!isset ($_SESSION["username"])){
             let data4 = document.createElement("td");
             let data5 = document.createElement("td");
             let data6 = document.createElement("td");
+            let data7 = document.createElement("td");
+            let data8 = document.createElement("td");
+            let data9 = document.createElement("td");
 
             data1.innerHTML = array[i];
             data2.innerHTML = array[i+1];
@@ -48,6 +76,9 @@ if (!isset ($_SESSION["username"])){
             data4.innerHTML = array[i+3];
             data5.innerHTML = array[i+4];
             data6.innerHTML = array[i+5];
+            data7.innerHTML = array[i+6];
+            data8.innerHTML = array[i+7];
+            data9.innerHTML = array[i+8];
 
             tableRow.appendChild(data1);
             tableRow.appendChild(data2);
@@ -55,38 +86,119 @@ if (!isset ($_SESSION["username"])){
             tableRow.appendChild(data4);
             tableRow.appendChild(data5);
             tableRow.appendChild(data6);
+            tableRow.appendChild(data7);
+            tableRow.appendChild(data8);
+            tableRow.appendChild(data9);
 
             pageTable.appendChild(tableRow);
-
-
         }
-      
-
-    });
+        
   }
-  loadList();
-
-    $('form').on('submit', function (e) {
-        e.preventDefault();
+  function loadInitialList(){
+    let values= {
+        'recordOffset': recordOffset
+    };
 
         $.ajax({
             type: 'post',
-            url: '../../PHP/checkoutFile.php',
-            data: $('form').serialize(),
+            url: '../../PHP/populateLogs.php',
+            data: values,
             success: function(res) {
+                let array = JSON.parse(res);
+                
+                loadList(array);
+                let pageTable = document.getElementById("pageTable");
+                let caption = pageTable.createCaption();
+                caption.textContent = "Recent Logs";
 
-              alert("Equipment checked out.");
-
-              input1 = document.getElementById("equipmentid");
-              input1.value = "";
-
-              input2 = document.getElementById("studentid");
-              input2.value = "";
+             
 
               }
               
         });
+  }
+  function loadSearchList(){
+    let values= {
+        'equipmentId': searchID,
+        'recordOffset': recordOffset
+    };
+
+        $.ajax({
+            type: 'post',
+            url: '../../PHP/searchLogs.php',
+            data: values,
+            success: function(res) {
+                let array = JSON.parse(res);
+                loadList(array);
+                let pageTable = document.getElementById("pageTable");
+                let caption = pageTable.createCaption();
+                caption.textContent = "Search Results";
+
+             
+
+              }
+              
+        });
+
+  }
+  let searchBtn = document.getElementById("searchBtn");
+  let resetBtn = document.getElementById("resetBtn");
+  let prevBtn = document.getElementById("prevPage");
+  let nextBtn = document.getElementById("nextPage");
+  let recordOffset = 0;
+  let recordFill = 0;
+  let searchBool = false;
+  let searchID = "0";
+  let pageNum = document.getElementById("pageNumVal");
+  let pageNumVal = 1;
+  loadInitialList();
+  
+  
+  searchBtn.addEventListener("click",function(){
+    let searchBar = document.getElementById("dataSearch");
+    searchID = searchBar.value;
+    recordOffset = 0;
+    searchBool = true;
+    loadSearchList();
+    
     });
+  resetBtn.addEventListener("click", function(){
+    recordOffset = 0;
+    recordFill = 0;
+    searchBool = false;
+    let searchID = "0";
+    let searchBar = document.getElementById("dataSearch");
+    pageNumVal=1;
+    searchBar.value = "";
+
+    loadInitialList();
+
+  });
+  nextBtn.addEventListener("click", function(){
+    if(recordFill==225 && (searchBool == false)){
+        recordOffset +=25;
+        loadInitialList();
+        pageNumVal +=1;
+    }else if(recordFill==225 &&(searchBool == true)){
+        recordOffset +=25;
+        loadSearchList();
+        pageNumVal +=1;
+    }
+
+  });
+  prevBtn.addEventListener("click", function(){
+    if(recordOffset > 0 && (searchBool == false)){
+        recordOffset -=25;
+        loadInitialList();
+        pageNumVal -=1;
+    }else if(recordOffset > 0 && (searchBool == true)){
+        recordOffset -=25;
+        loadSearchList();
+        pageNumVal -=1;
+    }
+
+  });
+    
 
 });
 </script>
@@ -115,17 +227,10 @@ if (!isset ($_SESSION["username"])){
                     <label for="dataSearch">Equipment ID:</label>
                     <input type="text" name="dataSearch" id="dataSearch">
                 </div>
-                <div class="inputGroup">
-                    <label for="date1">From:</label>
-                    <input type="date" name="date1" id="date1">
-                </div>
-                <div class="inputGroup">
-                    <label for="date2">To:</label>
-                    <input type="date" name="date2" id="date2">
-                </div>
+                
                 <div class="buttonGroup">
-                    <input type="submit" value="Search">
-                    <input type="reset"  value="Reset">
+                    <input type="button" id= "searchBtn" value="Search">
+                    <input type="button" id="resetBtn" value="Reset">
                 </div>
         </form>
         <table id = "pageTable">
@@ -137,9 +242,20 @@ if (!isset ($_SESSION["username"])){
                 <th>Employee ID</th>
                 <th>Equipment ID</th>
                 <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Student Email</th>
+                <th>Class</th>
             </tr>
 
         </table>
+        <div class = "nextButtons">
+        <button type="button" id= "prevPage"> << </button>
+        <button type="button" id= "nextPage"> >> </button>
+        
+        </div>
+        <div class="pageNumber">
+            <p id= "pageNumVal">1</p>
+        </div>
     </div>
 
 </body>

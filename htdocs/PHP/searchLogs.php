@@ -19,8 +19,9 @@ if(!$conn)
     die("Connection Failed:" . mysqli_connect_error()); 
 }
     $record_offset = $_POST['recordOffset'];
+    $equipment_id = $_POST['equipmentId'];
 
-    $sql_query = "SELECT transaction_id, transaction_info, transaction_date, employee_id, equipment_id, student_id FROM transaction ORDER BY transaction_id DESC LIMIT 25 OFFSET $record_offset";
+    $sql_query = "SELECT transaction_id, transaction_info, transaction_date, employee_id, equipment_id, student_id FROM transaction WHERE equipment_id = '$equipment_id' ORDER BY transaction_id DESC LIMIT 25 OFFSET $record_offset";
 
     $result = mysqli_query($conn,$sql_query);
 

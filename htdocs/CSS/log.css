@@ -44,7 +44,7 @@ img{
     flex-direction: column;
     background-color: white;
     margin: 35px 50px;
-    height:600px;
+    height:70vh;
     border-radius: 30px;
 
 }
@@ -78,7 +78,7 @@ body{
     margin-right:50px;
     
 }
-input[type="submit"],input[type="reset"]{
+input[type="button"],input[type="reset"]{
     font-size: 20px;
     width: 120px;
     background-color: #022b3a;
@@ -156,4 +156,30 @@ footer>p{
 
     display: flex;
     flex-direction: column;
+  }
+  .nextButtons{
+    display:flex;
+    margin-top:auto;
+    
+    justify-content: center;
+  }
+  .nextButtons >button {
+    background-color: #022b3a;
+    color: white;
+    width:60px;
+    height:30px;
+    opacity:.9;
+    cursor:pointer;
+    
+    font-size: 20px;
+    
+  }
+  .nextButtons >button:hover{
+    opacity:1;
+  }
+  .pageNumber{
+    display:flex;
+    justify-content:center;
+    margin-top:0px;
+    
   }

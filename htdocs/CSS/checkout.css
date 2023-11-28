@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    
   }
   
   .menuBar{
@@ -177,14 +178,14 @@ footer>p{
   color: white;
 }
 .section1{
-    width: 45vh;
+    width: 45vw;
     border-right: 3px groove #f1f1f1;
     
 }
 .section2{
     margin-right:0px;
     
-    width: 45vh;
+    width: 45vw;
 }
 .heading{
     display:flex;
