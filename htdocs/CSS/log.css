@@ -46,6 +46,7 @@ img{
     margin: 35px 50px;
     height:70vh;
     border-radius: 30px;
+    min-height: fit-content;
 
 }
 h1{
@@ -183,3 +184,7 @@ footer>p{
     margin-top:0px;
     
   }
+  .pageTable{
+    min-height: 70vh;
+  }
+  

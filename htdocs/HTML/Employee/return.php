@@ -21,20 +21,57 @@ if (!isset ($_SESSION["username"])){
     function loadList(){
     console.log("hello");
     $.getJSON('../../PHP/populateReturn.php', function(data) {
+      console.log(data);
       let array = data;
       let loadLocation = document.getElementById("loadLocation");
-      console.log(loadLocation);
+      loadLocation.innerHTML = "";
+      let header1 = document.createElement("p");
+      header1.innerHTML = "<strong>Equipment ID</strong>";
+      let header2 = document.createElement("p");
+      header2.innerHTML = "<strong>Equipment Name</strong>";
+      let header3 = document.createElement("p");
+      header3.innerHTML = "<strong>Student ID</strong>";
+      let header4 = document.createElement("p");
+      header4.innerHTML = "<strong>Student Name</strong>";
+      let headerDiv = document.createElement("div");
+      headerDiv.classList.add("listGroup");
+
+      headerDiv.appendChild(header1);
+      header1.style.marginLeft = "50px";
+      headerDiv.appendChild(header2);
+      header2.style.marginLeft = "30px";
+      headerDiv.appendChild(header3);
+      header3.style.marginLeft = "30px";
+      headerDiv.appendChild(header4);
+      header4.style.marginLeft = "30px";
+
+      loadLocation.appendChild(headerDiv);
+      let headerSpacer = document.createElement("hr");
+      loadLocation.appendChild(headerSpacer);
       
-      for(let i =0; i<array.length; i+=2){
+      
+      for(let i =0; i<array.length; i+=4){
+        let selectBtn = document.createElement("button");
+        selectBtn.setAttribute("type", "button");
+        selectBtn.innerHTML = "Select";
+        selectBtn.classList.add("selectBtn");
+
         let line1 = document.createElement("p");
         let line2 = document.createElement("p");
+        let line3 = document.createElement("p");
+        let line4 = document.createElement("p");
         let listingGroup = document.createElement("div");
         listingGroup.classList.add("listGroup");
         line1.innerHTML = array[i];
         line2.innerHTML = array[i+1];
+        line3.innerHTML = array[i+2];
+        line4.innerHTML = array[i+3];
+        listingGroup.appendChild(selectBtn);
 
         listingGroup.appendChild(line1);
         listingGroup.appendChild(line2);
+        listingGroup.appendChild(line3);
+        listingGroup.appendChild(line4);
         loadLocation.appendChild(listingGroup);
 
         //styles
@@ -42,13 +79,41 @@ if (!isset ($_SESSION["username"])){
         line1.style.marginLeft = "5px";
 
         line2.style.marginTop = "0px";
-        line2.style.marginLeft = "auto";
+        line2.style.marginLeft = "70px";
+        line2.style.width = "200px";
+
+        line3.style.marginTop = "0px";
+        line3.style.marginLeft = "10px";
+        line3.style.width="100px";
+
+        line4.style.marginTop = "0px";
+        line4.style.marginLeft = "10px";
 
 
 
 
 
       }
+      let cloneLocation = loadLocation.cloneNode(true);
+      loadLocation.parentNode.replaceChild(cloneLocation,loadLocation);
+
+      cloneLocation.addEventListener("click", function(e){
+
+        if(e.target.tagName == "BUTTON"){
+          console.log("this button activated");
+          let thisDiv = e.target.parentElement;
+          thisDivChildren = thisDiv.children;
+          let incomingEquipId = thisDivChildren[1];
+          let incomingStudentId = thisDivChildren[3];
+
+          let equipmentIdSearch = document.getElementById("equipmentid");
+          equipmentIdSearch.value = incomingEquipId.innerHTML;
+          let studentIdSearch = document.getElementById("studentid");
+          studentIdSearch.value = incomingStudentId.innerHTML;
+
+        }
+
+      });
 
 
 
@@ -73,6 +138,7 @@ if (!isset ($_SESSION["username"])){
 
               input2 = document.getElementById("studentid");
               input2.value = "";
+              loadList();
 
               }
               
@@ -116,11 +182,7 @@ if (!isset ($_SESSION["username"])){
     <h1>Outstanding Equipment</h1>
       <p> Below is a list of all equipment waiting to be returned </p>
       <div class = "loadLocation" id = "loadLocation">
-        <div class= "heading">
-          <p class= "first"> <strong>Name</strong> </p>
-          <p class= "second"> <strong>ID</strong> </p> 
-        </div>
-        <hr>
+        
 
 
 

@@ -214,6 +214,31 @@ footer>p{
     margin-top: 0px;
     
   }
+  .selectBtn{
+    background-color: #022b3a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+    height:40px;
+    opacity: 0.9;
+
+    
+  }
+  .advanceButtons{
+    display:flex;
+    flex-direction: row;
+    margin-top: auto;
+    margin-left:0px;
+    justify-content: center;
+    
+
+    
+    
+  }
+  .loadLocation{
+    height:800px;
+  }
 
 
 

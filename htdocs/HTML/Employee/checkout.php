@@ -18,34 +18,64 @@ if (!isset ($_SESSION["username"])){
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
-
+   //17
     function loadList(){
     console.log("hello");
-    $.getJSON('../../PHP/populateCheckout.php', function(data) {
-      let array = data;
-      let loadLocation = document.getElementById("loadLocation");
+    let values = {
+       'recordOffset': recordOffset
+    };
+    $.ajax({
+            type: 'post',
+            url: '../../PHP/populateCheckout.php',
+            data: values,
+            success: function(res) {
+                let array = JSON.parse(res);
+                recordAmount = array.length;
+                let loadLocation = document.getElementById("loadLocation");
+                loadLocation.innerHTML = "";
       
       
-      for(let i =0; i<array.length; i+=2){
-        let line1 = document.createElement("p");
-        let line2 = document.createElement("p");
-        let listingGroup = document.createElement("div");
-        listingGroup.classList.add("listGroup");
-        line1.innerHTML = array[i];
-        line2.innerHTML = array[i+1];
+               for(let i =0; i<array.length; i+=2){
+                  let selectBtn1 = document.createElement("button");
+                  selectBtn1.innerHTML = "Select";
+                  selectBtn1.setAttribute("type","button");
+                  let line1 = document.createElement("p");
+                  let line2 = document.createElement("p");
+                  let listingGroup = document.createElement("div");
+                  listingGroup.classList.add("listGroup");
+                  line1.innerHTML = array[i];
+                  line2.innerHTML = array[i+1];
+                  listingGroup.appendChild(selectBtn1);
+                  listingGroup.appendChild(line1);
+                  listingGroup.appendChild(line2);
+                  loadLocation.appendChild(listingGroup);
 
-        listingGroup.appendChild(line1);
-        listingGroup.appendChild(line2);
-        loadLocation.appendChild(listingGroup);
+                  //styles
+                  line1.style.marginTop = "0px";
+                  line1.style.marginLeft = "5px";
 
-        //styles
-        line1.style.marginTop = "0px";
-        line1.style.marginLeft = "5px";
-
-        line2.style.marginTop = "0px";
-        line2.style.marginLeft = "auto";
+                  line2.style.marginTop = "0px";
+                  line2.style.marginLeft = "auto";
       }
-    });
+      let cloneLocation = loadLocation.cloneNode(true);
+      loadLocation.parentNode.replaceChild(cloneLocation,loadLocation);
+
+      cloneLocation.addEventListener("click", function(e){
+
+        if(e.target.tagName == "BUTTON"){
+          let thisDiv = e.target.parentElement;
+          thisDivChildren = thisDiv.children;
+          let incomingEquipId = thisDivChildren[1];
+
+          let equipmentIdSearch = document.getElementById("equipmentid");
+          equipmentIdSearch.value = incomingEquipId.innerHTML;
+        }
+
+      });
+              }
+              
+        });
+      
   }
   function loadDropDown(){
     $.getJSON('../../PHP/populateManageStudents.php', function(data){
@@ -61,8 +91,26 @@ if (!isset ($_SESSION["username"])){
       
     });
   }
+  let recordOffset = 0;
+  let recordAmount = 0;
   loadList();
   loadDropDown();
+  let forwardBtn = document.getElementById("forwardBtn");
+  forwardBtn.addEventListener("click", function(){
+    if(recordAmount == 34){
+    recordOffset +=17;
+    loadList();
+    }
+  });
+  let backBtn = document.getElementById("backBtn");
+  backBtn.addEventListener("click", function(){
+    if(recordOffset >0){
+      recordOffset -=17;
+      loadList();
+    }
+
+
+  });
   let displayBtn = document.getElementById("displayBtn");
   displayBtn.addEventListener("click", function(){
     let dropDown = document.getElementById("classID");
@@ -96,8 +144,10 @@ if (!isset ($_SESSION["username"])){
           for(let i = 0; i<loadLength; i+=2){
             console.log("this is running");
            let loadDiv = document.createElement("div");
-           let line1 = document.createElement("p");
+           let line1 = document.createElement("button");
            line1.innerHTML = array[j] + ", "+ array[j+1];
+           line1.setAttribute("type","button");
+           line1.dataset.id = array[j];
             loadDiv.appendChild(line1);
             line1.style.borderRight = "3px groove #f1f1f1";
             line1.style.width = "250px";
@@ -107,8 +157,10 @@ if (!isset ($_SESSION["username"])){
             line1.style.borderBottom = "3px groove #f1f1f1";
 
             if(i < loadLength-1){
-              let line2 = document.createElement("p");
+              let line2 = document.createElement("button");
               line2.innerHTML = array[j+3] + ", "+ array[j+4];
+              line2.setAttribute("type","button");
+              line2.dataset.id = array[j+3];
               loadDiv.appendChild(line2);
               line2.style.marginLeft = "0px";
               line2.style.paddingLeft= "20px";
@@ -124,6 +176,21 @@ if (!isset ($_SESSION["username"])){
 
 
           }
+
+          let cloneSpot = loadSpot.cloneNode(true);
+          loadSpot.parentNode.replaceChild(cloneSpot,loadSpot);
+
+          cloneSpot.addEventListener("click", function(e){
+
+            if(e.target.tagName == "BUTTON"){
+          
+
+          let studentIdSearch = document.getElementById("studentid");
+          studentIdSearch.value = e.target.dataset.id;
+        }
+
+          });
+
 
 
         }
@@ -212,10 +279,17 @@ if (!isset ($_SESSION["username"])){
 
 
       </div>
+      <div class="advanceButtons">
+      <button type="button" id="backBtn"><<</button>
+      <button type="button" id ="forwardBtn">>></button>
+      </div>
+      
     </div>
+    
   
   
   </div>
+  
   
   
 </form>
