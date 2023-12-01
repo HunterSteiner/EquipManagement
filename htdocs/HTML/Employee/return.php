@@ -13,16 +13,28 @@ if (!isset ($_SESSION["username"])){
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../CSS/checkout.css" />
+<link rel="stylesheet" href="../../CSS/return.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
 
     function loadList(){
     console.log("hello");
-    $.getJSON('../../PHP/populateReturn.php', function(data) {
-      console.log(data);
-      let array = data;
+    let values = {
+       'recordOffset': recordOffset
+    };
+    $.ajax({
+            type: 'post',
+            url: '../../PHP/populateReturn.php',
+            data: values,
+            success: function(res) {
+
+
+
+      let array = JSON.parse(res);
+      recordAmount = array.length;
+      let pageNumberPara = document.getElementById("numberVal");
+                pageNumberPara.innerHTML = pageNumbVal;
       let loadLocation = document.getElementById("loadLocation");
       loadLocation.innerHTML = "";
       let header1 = document.createElement("p");
@@ -117,10 +129,31 @@ if (!isset ($_SESSION["username"])){
 
 
 
-
+            }
     });
   }
+  let recordOffset = 0;
+  let recordAmount = 0;
+  let pageNumbVal = 1;
   loadList();
+  let forwardBtn = document.getElementById("forwardBtn");
+  forwardBtn.addEventListener("click", function(){
+    if(recordAmount == 72){
+    recordOffset +=18;
+    pageNumbVal +=1;
+    loadList();
+    }
+  });
+  let backBtn = document.getElementById("backBtn");
+  backBtn.addEventListener("click", function(){
+    if(recordOffset >0){
+      recordOffset -=18;
+      pageNumbVal -=1;
+      loadList();
+    }
+
+
+  });
 
     $('form').on('submit', function (e) {
         e.preventDefault();
@@ -187,10 +220,19 @@ if (!isset ($_SESSION["username"])){
 
 
       </div>
+      <div class="advanceButtons">
+          <button type="button" id="backBtn"><<</button>
+          <button type="button" id ="forwardBtn">>></button>
+      </div>
+      <div class="pageNumber">
+      <p id = "numberVal">1</p>
+      </div>
     </div>
+    
   
   
   </div>
+  
   
   
 </form>

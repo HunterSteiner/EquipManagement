@@ -178,14 +178,14 @@ footer>p{
   color: white;
 }
 .section1{
-    width: 45vw;
+    width: 35vw;
     border-right: 3px groove #f1f1f1;
     
 }
 .section2{
     margin-right:0px;
     
-    width: 45vw;
+    width: 55vw;
     
 }
 .heading{
@@ -209,7 +209,8 @@ footer>p{
     margin-bottom: 0px;
 }
 .listGroup > *{
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  
 
 }
 .subListing{
@@ -261,18 +262,3 @@ footer>p{
     height:30px;
     margin:0px;
   }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-

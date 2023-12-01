@@ -30,18 +30,40 @@ if (!isset ($_SESSION["username"])){
             data: values,
             success: function(res) {
                 let array = JSON.parse(res);
+                console.log(array.length);
                 recordAmount = array.length;
+                let pageNumberPara = document.getElementById("numberVal");
+                pageNumberPara.innerHTML = pageNumbVal;
                 let loadLocation = document.getElementById("loadLocation");
                 loadLocation.innerHTML = "";
+                let header1 = document.createElement("p");
+                header1.innerHTML = "<strong>Equipment ID</strong>";
+                let header2 = document.createElement("p");
+                header2.innerHTML = "<strong>Equipment Name</strong>";
+                let headerDiv = document.createElement("div");
+                headerDiv.classList.add("listGroup");
+
+                headerDiv.appendChild(header1);
+                header1.style.marginLeft = "50px";
+                headerDiv.appendChild(header2);
+                header2.style.marginLeft = "30px";
+                
+
+                loadLocation.appendChild(headerDiv);
+                let headerSpacer = document.createElement("hr");
+                loadLocation.appendChild(headerSpacer);
       
       
                for(let i =0; i<array.length; i+=2){
                   let selectBtn1 = document.createElement("button");
                   selectBtn1.innerHTML = "Select";
                   selectBtn1.setAttribute("type","button");
+                  selectBtn1.classList.add("selectBtn");
+                  selectBtn1.style.marginBottom = "0px";
                   let line1 = document.createElement("p");
                   let line2 = document.createElement("p");
                   let listingGroup = document.createElement("div");
+                  
                   listingGroup.classList.add("listGroup");
                   line1.innerHTML = array[i];
                   line2.innerHTML = array[i+1];
@@ -49,6 +71,9 @@ if (!isset ($_SESSION["username"])){
                   listingGroup.appendChild(line1);
                   listingGroup.appendChild(line2);
                   loadLocation.appendChild(listingGroup);
+                  
+                  
+
 
                   //styles
                   line1.style.marginTop = "0px";
@@ -93,19 +118,22 @@ if (!isset ($_SESSION["username"])){
   }
   let recordOffset = 0;
   let recordAmount = 0;
+  let pageNumbVal = 1;
   loadList();
   loadDropDown();
   let forwardBtn = document.getElementById("forwardBtn");
   forwardBtn.addEventListener("click", function(){
-    if(recordAmount == 34){
-    recordOffset +=17;
+    if(recordAmount == 40){
+    recordOffset +=20;
+    pageNumbVal +=1;
     loadList();
     }
   });
   let backBtn = document.getElementById("backBtn");
   backBtn.addEventListener("click", function(){
     if(recordOffset >0){
-      recordOffset -=17;
+      recordOffset -=20;
+      pageNumbVal -=1;
       loadList();
     }
 
@@ -258,8 +286,6 @@ if (!isset ($_SESSION["username"])){
     <button type="button" class="displayBtn" id= "displayBtn">Display Students</button>
     <div class = "subsection1" id = "subsection1">
     
-
-
     </div>
 
     
@@ -267,31 +293,26 @@ if (!isset ($_SESSION["username"])){
     
     <!-- right side of page -->
     <div class = "section2">
-    <h1>Available</h1>
+      <h1>Available</h1>
       <p> Below is a list of all equipment available for checkout </p>
       <div class = "loadLocation" id = "loadLocation">
-        <div class= "heading">
-          <p class= "first"> <strong>Name</strong> </p>
-          <p class= "second"> <strong>ID</strong> </p> 
-        </div>
-        <hr>
-
-
-
+          <div class= "heading">
+              <p class= "first"> <strong>Name</strong> </p>
+              <p class= "second"> <strong>ID</strong> </p> 
+          </div>
+      <hr>
       </div>
+      
       <div class="advanceButtons">
-      <button type="button" id="backBtn"><<</button>
-      <button type="button" id ="forwardBtn">>></button>
+          <button type="button" id="backBtn"><<</button>
+          <button type="button" id ="forwardBtn">>></button>
+      </div>
+      <div class="pageNumber">
+      <p id = "numberVal">1</p>
       </div>
       
     </div>
-    
-  
-  
   </div>
-  
-  
-  
 </form>
 
 </body>
