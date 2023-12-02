@@ -128,11 +128,27 @@ if (!isset ($_SESSION["username"])){
             url: '../../PHP/searchLogs.php',
             data: values,
             success: function(res) {
+                let errorFlag = false;
+                try{
+                    let array = JSON.parse(res);
+                } catch(error){
+                    console.log("no results");
+                    let errorLine = document.getElementById("errorField");
+                    errorLine.innerHTML = "No results found, try a different Equipment ID.";
+                    errorFlag = true;
+                    loadInitialList();
+                }
+                if(!errorFlag){
                 let array = JSON.parse(res);
+                let errorLine = document.getElementById("errorField");
+                errorLine.innerHTML = "";
                 loadList(array);
                 let pageTable = document.getElementById("pageTable");
                 let caption = pageTable.createCaption();
                 caption.textContent = "Search Results";
+
+                }
+                
 
              
 
@@ -222,6 +238,7 @@ if (!isset ($_SESSION["username"])){
     </div>
     <div class="mainContent">
         <h1>Logs</h1>
+        <p class = "errorField" id ="errorField" ></p>
         <form>
                 <div class="inputGroup">
                     <label for="dataSearch">Equipment ID:</label>

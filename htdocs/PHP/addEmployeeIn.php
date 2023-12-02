@@ -12,8 +12,8 @@ if(!$conn)
 }
 
 
-    $first_name = $_POST['firstname'];
-    $last_name = $_POST['lastname'];
+    $full_name = $_POST['fullname'];
+    
     $user_name = $_POST['username'];
     $passcode = $_POST['psw'];
 
@@ -29,12 +29,12 @@ if(!$conn)
     }
     
 
-    $sql_query = "INSERT INTO employee (employee_id,first_name,last_name,employee_role,passcode)
-    VALUES ('$user_name','$first_name','$last_name','$privledge','$pass_hash')";
+    $sql_query = "INSERT INTO employee (employee_id,employee_name,employee_role,passcode)
+    VALUES ('$user_name','$full_name','$privledge','$pass_hash')";
 
     if (mysqli_query($conn,$sql_query))
     {
-        echo "New Details Entry inserted successfully !";
+        echo "1";
     }
     else{
         echo "Error: " . $sql . "" . mysqli_error($conn);

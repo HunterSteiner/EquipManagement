@@ -178,14 +178,14 @@ footer>p{
   color: white;
 }
 .section1{
-    width: 45vw;
+    width: 35vw;
     border-right: 3px groove #f1f1f1;
     
 }
 .section2{
     margin-right:0px;
     
-    width: 45vw;
+    width: 55vw;
     
 }
 .heading{
@@ -206,9 +206,7 @@ footer>p{
 .listGroup{
     display:flex;
     flex-direction:row;
-    padding-bottom: 0px;
     margin-bottom: 0px;
-    height: fit-content;
     
 }
 .listGroup > *{
@@ -268,21 +266,3 @@ footer>p{
   .errorField{
     color:red;
   }
-  .errorText{
-    color:red;
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-

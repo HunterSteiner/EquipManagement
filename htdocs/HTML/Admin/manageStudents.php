@@ -99,7 +99,7 @@ if (!isset ($_SESSION["username"])){
                  thistext = thistestChildren[0].innerHTML;
                  let newpara = thistestChildren[0].cloneNode(true);
 
-                 let newinput2 = document.createElement("input");
+                 
                  thistext2 = thistestChildren[1].innerHTML;
                  let newpara2 = thistestChildren[1].cloneNode(true);
 
@@ -147,10 +147,8 @@ if (!isset ($_SESSION["username"])){
                  newinput3.style.marginLeft = "130px";
                  newinput3.style.width = "210px";
 
-                 thistest.prepend(newinput2);
-                 newinput2.value = thistext2;
-                 newinput2.classList.add("newinput");
-                 newinput2.style.width = "120px";
+                 thistest.prepend(newpara2);
+                 
 
                  thistest.prepend(newinput);
                  newinput.value = thistext;
@@ -304,8 +302,26 @@ if (!isset ($_SESSION["username"])){
             url: '../../PHP/manageStudentsFile.php',
             data: $('form').serialize(),
             success: function(res) {
+              let errorFlag = false;
+              try{
+                let array = JSON.parse(res);
+              } catch(error){
+                let errorLine = document.getElementById("errorText");
+                errorLine.innerHTML = "No Students have been added to this class";
+                errorFlag = true;
+                var start = document.getElementById("loadLocation");
+                start.innerHTML = "";
+                let hiddenHeader = document.getElementById("hidden1");
+              let hiddenLink = document.getElementById("hidden2");
+              hiddenHeader.removeAttribute("hidden");
+              hiddenLink.removeAttribute("hidden");
 
-              var array = JSON.parse(res);
+              }
+              if(!errorFlag){
+                let errorLine = document.getElementById("errorText");
+                errorLine.innerHTML = "";
+                
+                var array = JSON.parse(res);
               loadStuList(array);
               let dropDown = document.getElementById("classID");
               sessionStorage.setItem("lastSelectedClass", dropDown.value);
@@ -314,11 +330,8 @@ if (!isset ($_SESSION["username"])){
               hiddenHeader.removeAttribute("hidden");
               hiddenLink.removeAttribute("hidden");
 
-              
-              
-
-              
-               
+              }
+            
             }
 
         });
@@ -348,6 +361,7 @@ if (!isset ($_SESSION["username"])){
   <div class="container">
     <h1>Manage Students</h1>
     <p>Please fill in class ID to display students</p>
+    <p class ="errorText" id="errorText"></p>
     <hr>
     <label for="classID">Select Class</label>
     <select name="classID" placeholder ="Select" id = "classID">

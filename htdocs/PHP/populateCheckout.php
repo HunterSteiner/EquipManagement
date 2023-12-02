@@ -18,8 +18,8 @@ if(!$conn)
 {
     die("Connection Failed:" . mysqli_connect_error()); 
 }
-
-    $sql_query = "SELECT equipment_id, equipment_name FROM equipment WHERE equipment_status = 1 AND active = 1";
+    $record_offset = $_POST['recordOffset'];
+    $sql_query = "SELECT equipment_id, equipment_name FROM equipment WHERE equipment_status = 1 AND active = 1 LIMIT 20 OFFSET $record_offset";
 
     $result = mysqli_query($conn,$sql_query);
 

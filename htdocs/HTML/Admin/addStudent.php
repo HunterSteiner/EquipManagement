@@ -35,11 +35,11 @@ if (!isset ($_SESSION["username"])){
             data: $('form').serialize(),
             success: function(res) {
               //This is the section that will run after running the php file. res is the data response from the php file.
-
-              alert("New student created.");
-
-             //the following lines just resets the 2 input boxes after hitting submit
-              input1 = document.getElementById("studentID");
+              if(res=="1"){
+                alert("New student created.");
+                let errorLine = document.getElementById("errorText");
+                errorLine.innerHTML = "";
+                input1 = document.getElementById("studentID");
               input1.value = "";
 
               input2 = document.getElementById("studentName");
@@ -48,6 +48,11 @@ if (!isset ($_SESSION["username"])){
               input3 = document.getElementById("studentEmail");
               input3.value = "";
 
+              }else{
+                let errorLine = document.getElementById("errorText");
+                errorLine.innerHTML = "Student ID already in use";
+                
+              }
               }
               
                 
@@ -79,6 +84,7 @@ if (!isset ($_SESSION["username"])){
     <button type="button" name="back" class="backbtn" id="backbtn"></button>
     <h1>Add Student</h1>
     <p>Please fill in this form to add a student to <?php echo $_SESSION["selectedClass"];?>.</p>
+    <p class ="errorText" id="errorText"></p>
     <hr>
     
 

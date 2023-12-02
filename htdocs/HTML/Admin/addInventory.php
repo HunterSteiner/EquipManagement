@@ -32,14 +32,23 @@ if (!isset ($_SESSION["username"])){
             url: '../../PHP/addInventoryIn.php',
             data: $('form').serialize(),
             success: function(res) {
-
-              alert("New Equipment Item created.");
+              if(res == "1"){
+                alert("New Equipment Item created.");
+                let errorField = document.getElementById("errorText");
+                errorField.innerHTML = "";
 
               input1 = document.getElementById("equipID");
               input1.value = "";
 
               input2 = document.getElementById("equipName");
               input2.value = "";
+
+              }else{
+                let errorField = document.getElementById("errorText");
+                errorField.innerHTML = "Equipment ID is invalid or already used";
+              }
+
+              
 
               
 
@@ -74,6 +83,7 @@ if (!isset ($_SESSION["username"])){
   <button type="button" name="back" class="backbtn" id="backbtn"></button>
     <h1>Add Inventory</h1>
     <p>Please fill in this form to create an inventory item.</p>
+    <p class ="errorText" id="errorText"></p>
     <hr>
     
 
