@@ -207,9 +207,10 @@ footer>p{
     display:flex;
     flex-direction:row;
     margin-bottom: 0px;
+    
 }
 .listGroup > *{
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   
 
 }
@@ -261,4 +262,7 @@ footer>p{
     
     height:30px;
     margin:0px;
+  }
+  .errorField{
+    color:red;
   }

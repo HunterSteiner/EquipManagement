@@ -34,10 +34,10 @@ if(!$conn)
 
     if (mysqli_query($conn,$sql_query))
     {
-        echo "New Details Entry inserted successfully !";
+        echo "1";
         $sql_query = "UPDATE equipment SET equipment_status=1 WHERE equipment_id='$equipment_id'";
         if(mysqli_query($conn,$sql_query)){
-            echo "status has been changed for equipment";
+            echo "1";
         }
         else{
             echo "Error: " . $sql . "" . mysqli_error($conn);

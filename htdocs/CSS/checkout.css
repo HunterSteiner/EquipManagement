@@ -206,10 +206,14 @@ footer>p{
 .listGroup{
     display:flex;
     flex-direction:row;
+    padding-bottom: 0px;
     margin-bottom: 0px;
+    height: fit-content;
+    
 }
 .listGroup > *{
-  margin-bottom: 15px;
+  margin-bottom: 0px;
+  
 
 }
 .subListing{
@@ -260,6 +264,12 @@ footer>p{
     
     height:30px;
     margin:0px;
+  }
+  .errorField{
+    color:red;
+  }
+  .errorText{
+    color:red;
   }
   
 

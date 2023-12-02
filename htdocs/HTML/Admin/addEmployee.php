@@ -23,40 +23,83 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
     let backArrow = document.getElementById("backbtn");
     backArrow.addEventListener("click",function(){
         window.location.href= "manageEmployee.php";
-
     });
 
-    $('form').on('submit', function (e) {
-        e.preventDefault();
+    
+    let registerBtn = document.getElementById("registerBtn");
+    
+    registerBtn.addEventListener("click", function(){
+      
+     
+      let input1 = document.getElementById("fullname");
+      console.log(input1.value);
+      let input3 = document.getElementById("username");
+      console.log(input3.value);
+      let input4 = document.getElementById("psw");
+      console.log(input4.value);
+      let input5 = document.getElementById("pswrepeat");
+      console.log(input5.value);
+      let input6 = document.getElementById("user_type");
+      console.log(input6.value);
+      if(input1.value && input3.value && input4.value && input5.value){
+        if(input4.value === input5.value){
+
+      console.log("this is running?");
+      let values = {
+        'fullname': input1.value,
+        'username': input3.value,
+        'user_type': input6.value,
+        'psw': input4.value
+      }
 
         $.ajax({
             type: 'post',
             url: '../../PHP/addEmployeeIn.php',
-            data: $('form').serialize(),
+            data: values,
             success: function(res) {
+              console.log(res);
+              if(res == "1"){
+                let errorLine = document.getElementById("errorText");
+                errorLine.innerHTML = "";
+                alert("Employee created.");
+                input1 = document.getElementById("fullname");
+                input1.value = "";
 
-              alert("Employee created.");
-              
-              input1 = document.getElementById("firstname");
+                input3 = document.getElementById("username");
+                input3.value = "";
 
-              input1.value = "";
+                input4 = document.getElementById("psw");
+                input4.value = "";
 
-              input2 = document.getElementById("lastname");
-              input2.value = "";
+                input5 = document.getElementById("pswrepeat");
+                input5.value = "";
 
-              input3 = document.getElementById("username");
-              input3.value = "";
-
-              input4 = document.getElementById("psw");
-              input4.value = "";
-
-              input5 = document.getElementById("psw-repeat");
-              input5.value = "";
                 
-            }
+
+              }else{
+                let errorLine = document.getElementById("errorText");
+                errorLine.innerHTML = "Email is already used.";
+
+              }
+              
+              
+                
+            },
+            
 
         });
-    });
+        }else{
+          let errorLine = document.getElementById("errorText");
+           errorLine.innerHTML = "Passwords do not match.";
+
+        } 
+      }else{
+        let errorLine = document.getElementById("errorText");
+        errorLine.innerHTML = "Please Fill in all fields.";
+
+      }
+      });
+    
 
 });
 </script>
@@ -79,19 +122,17 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
     </div>
 </div>
 
-<form action="../../PHP/addEmployeeIn.php" method="POST">
+<form id="thisform">
   <div class="container">
   <button type="button" name="back" class="backbtn" id="backbtn"></button>
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
+    <p class ="errorText" id="errorText"></p>
     <hr>
     
 
-    <label for="firstname">First Name</label>
-    <input type="text" placeholder="Enter First Name" name="firstname" id="firstname" required>
-
-    <label for="lastname">Last Name</label>
-    <input type="text" placeholder="Enter Last Name" name="lastname" id="lastname" required>
+    <label for="firstname">Name</label>
+    <input type="text" placeholder="Enter First Name" name="firstname" id="fullname" required>
 
     <label for="username"><b>Email</b></label>
     <input type="text" placeholder="Enter Username" name="username" id="username" required>
@@ -100,17 +141,17 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
     <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
 
     <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="pswrepeat" required>
 
     <label for="user_type">Privledges:</label>
-                <select name="user_type" id=" user_type">
+                <select name="user_type" id="user_type">
                     <option value="Employee">Employee</option>
                     <option value="Administrator">Administrator</option>
                 </select>
     <hr>
     
 
-    <button type="submit" name="save" class="registerbtn">Register</button>
+    <button type="button" id="registerBtn" name="save" class="registerbtn">Register</button>
   </div>
   
   

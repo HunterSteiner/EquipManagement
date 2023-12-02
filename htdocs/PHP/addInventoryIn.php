@@ -30,7 +30,7 @@ if(!$conn)
 
     if (mysqli_query($conn,$sql_query))
     {
-        echo "New Details Entry inserted successfully !";
+        echo "1";
     }
     else{
         echo "Error: " . $sql . "" . mysqli_error($conn);

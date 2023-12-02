@@ -67,6 +67,7 @@ if (!isset ($_SESSION["username"])){
         selectBtn.setAttribute("type", "button");
         selectBtn.innerHTML = "Select";
         selectBtn.classList.add("selectBtn");
+        selectBtn.style.marginLeft = "10px";
 
         let line1 = document.createElement("p");
         let line2 = document.createElement("p");
@@ -85,10 +86,15 @@ if (!isset ($_SESSION["username"])){
         listingGroup.appendChild(line3);
         listingGroup.appendChild(line4);
         loadLocation.appendChild(listingGroup);
+        let lineSpacer1 = document.createElement("hr");
+        loadLocation.appendChild(lineSpacer1);
+        lineSpacer1.style.margin = "0px";
+        lineSpacer1.style.marginBottom = "2px";
 
         //styles
         line1.style.marginTop = "0px";
         line1.style.marginLeft = "5px";
+        line1.style.width ="100px";
 
         line2.style.marginTop = "0px";
         line2.style.marginLeft = "70px";
@@ -163,15 +169,23 @@ if (!isset ($_SESSION["username"])){
             url: '../../PHP/returnFile.php',
             data: $('form').serialize(),
             success: function(res) {
-
-              alert("Equipment checked out.");
-
-              input1 = document.getElementById("equipmentid");
-              input1.value = "";
+              if(res == "11"){
+                alert("Equipment returned.");
+                input1 = document.getElementById("equipmentid");
+                input1.value = "";
 
               input2 = document.getElementById("studentid");
               input2.value = "";
               loadList();
+                let errorLine = document.getElementById("errorField");
+                errorLine.innerHTML = "";
+
+              }else{
+                console.log("no worky");
+                let errorLine = document.getElementById("errorField");
+                errorLine.innerHTML = "Error: Incorrect Equipment or Student ID.";
+                
+              }
 
               }
               
@@ -202,6 +216,7 @@ if (!isset ($_SESSION["username"])){
     <div class = "section1">
     <h1>Check-In</h1>
     <p>Please fill in this form to return an item</p>
+    <p class= "errorField" id="errorField"></p>
     <label for="equipmentid">Equipment ID</label>
     <input type="text" placeholder="Enter Equipment ID" name="equipmentid" id="equipmentid" required>
     <label for="studentid">Student ID</label>

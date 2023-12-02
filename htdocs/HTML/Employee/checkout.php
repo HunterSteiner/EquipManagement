@@ -60,17 +60,25 @@ if (!isset ($_SESSION["username"])){
                   selectBtn1.setAttribute("type","button");
                   selectBtn1.classList.add("selectBtn");
                   selectBtn1.style.marginBottom = "0px";
+                  selectBtn1.style.marginLeft ="10px";
                   let line1 = document.createElement("p");
                   let line2 = document.createElement("p");
                   let listingGroup = document.createElement("div");
                   
                   listingGroup.classList.add("listGroup");
+                  listingGroup.style.margin = "0px";
                   line1.innerHTML = array[i];
                   line2.innerHTML = array[i+1];
                   listingGroup.appendChild(selectBtn1);
                   listingGroup.appendChild(line1);
                   listingGroup.appendChild(line2);
                   loadLocation.appendChild(listingGroup);
+                  let lineSpacer = document.createElement("hr");
+                  loadLocation.appendChild(lineSpacer);
+                  lineSpacer.style.margin = "0px";
+                  lineSpacer.style.marginBottom = "5px";
+                  lineSpacer.style.padding = "0px";
+                  lineSpacer.style.paddingLeft = "10px";
                   
                   
 
@@ -155,7 +163,20 @@ if (!isset ($_SESSION["username"])){
         url: '../../PHP/manageStudentsFile.php',
         data: values,
         success: function(res){
-          var array = JSON.parse(res);
+          let errorFlag = false;
+          try{
+            var array = JSON.parse(res);
+          } catch(error){
+            let errorLine = document.getElementById("errorText");
+            errorLine.innerHTML = "No Students have been added to this class";
+            errorFlag = true;
+            let loadSpot = document.getElementById("subsection1");
+            loadSpot.innerHTML = "";
+          }
+          if(!errorFlag){
+            var array = JSON.parse(res);
+            let errorLine = document.getElementById("errorText");
+            errorLine.innerHTML = "";
           console.log(array.length);
           let loadSpot = document.getElementById("subsection1");
           loadSpot.innerHTML = "";
@@ -219,6 +240,9 @@ if (!isset ($_SESSION["username"])){
 
           });
 
+          }
+          
+
 
 
         }
@@ -237,14 +261,24 @@ if (!isset ($_SESSION["username"])){
             url: '../../PHP/checkoutFile.php',
             data: $('form').serialize(),
             success: function(res) {
+              if(res == "11"){
+                alert("Equipment checked out.");
+                input1 = document.getElementById("equipmentid");
+                input1.value = "";
 
-              alert("Equipment checked out.");
+                input2 = document.getElementById("studentid");
+                input2.value = "";
 
-              input1 = document.getElementById("equipmentid");
-              input1.value = "";
+                let errorLine = document.getElementById("errorField");
+                errorLine.innerHTML = "";
 
-              input2 = document.getElementById("studentid");
-              input2.value = "";
+              }else{
+                console.log("no worky");
+                let errorLine = document.getElementById("errorField");
+                errorLine.innerHTML = "Error: Incorrect Equipment or Student ID.";
+              }
+              
+
 
               }
               
@@ -275,16 +309,19 @@ if (!isset ($_SESSION["username"])){
     <div class = "section1">
     <h1>Check-Out</h1>
     <p>Please fill in this form to check-out an item</p>
+    <p class= "errorField" id="errorField"></p>
     <label for="equipmentid">Equipment ID</label>
     <input type="text" placeholder="Enter Equipment ID" name="equipmentid" id="equipmentid" required>
     <label for="studentid">Student ID</label>
     <input type="text" placeholder="Enter Student ID" name="studentid" id="studentid" required>
     <button type="submit" name="save" class="registerbtn">Check-Out</button>
     <hr>
+    <p class ="errorText" id="errorText"></p>
     <select id = "classID">
     </select>
     <button type="button" class="displayBtn" id= "displayBtn">Display Students</button>
     <div class = "subsection1" id = "subsection1">
+    
     
     </div>
 

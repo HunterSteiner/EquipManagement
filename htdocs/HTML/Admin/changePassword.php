@@ -29,6 +29,9 @@ if (!isset ($_SESSION["username"])){
     let submitButton = document.getElementById("submitButton");
     submitButton.addEventListener("click", function(){
         let passwordVal = document.getElementById("passwordVal");
+        let passwordConf = document.getElementById("passwordConf");
+        if(passwordVal.value && passwordConf.value){
+          if(passwordVal.value === passwordConf.value){
 
         let values = {
                       'employeeId': sessionStorage.getItem("selectedEmployee"),
@@ -40,6 +43,8 @@ if (!isset ($_SESSION["username"])){
             data: values,
             success: function(res) {
                 console.log(res);
+                let errorField = document.getElementById("errorText");
+                errorField.innerHTML = "";
 
               alert("Password Changed.");
 
@@ -49,13 +54,20 @@ if (!isset ($_SESSION["username"])){
               input2 = document.getElementById("passwordConf");
               input2.value = "";
 
-              
-
               }
               
                 
 
         });
+      }else{
+        let errorField = document.getElementById("errorText");
+        errorField.innerHTML = "Passwords do not match";
+
+      }
+      }else{
+        let errorField = document.getElementById("errorText");
+        errorField.innerHTML = "Please fill out all fields";
+      }
 
     });
 
@@ -83,13 +95,14 @@ if (!isset ($_SESSION["username"])){
   <button type="button" name="back" class="backbtn" id="backbtn"></button>
     <h1>Change Password</h1>
     <p id = "fillPasswordLine">Please fill in a new password</p>
+    <p id= "errorText" class= "errorText">Error</p>
     <hr>
     
 
     <label for="passwordVal">New Password:</label>
     <input type="password" placeholder="Enter New Password" name="passwordVal" id="passwordVal" required>
 
-    <label for="passwordConf">Equipment Name</label>
+    <label for="passwordConf">Confirm New Password</label>
     <input type="password" placeholder="Enter New Password" name="passwordConf" id="passwordConf" required>
 
     <hr>
