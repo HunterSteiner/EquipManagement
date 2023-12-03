@@ -14,7 +14,7 @@ if (!isset ($_SESSION["username"])){
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../CSS/checkout.css" />
+<link rel="stylesheet" href="../../CSS/checkoutV2.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
@@ -36,21 +36,25 @@ if (!isset ($_SESSION["username"])){
                 pageNumberPara.innerHTML = pageNumbVal;
                 let loadLocation = document.getElementById("loadLocation");
                 loadLocation.innerHTML = "";
+                let filler = document.createElement("p");
+                filler.classList.add("filler");
                 let header1 = document.createElement("p");
+                header1.classList.add("header1");
                 header1.innerHTML = "<strong>Equipment ID</strong>";
                 let header2 = document.createElement("p");
                 header2.innerHTML = "<strong>Equipment Name</strong>";
+                header2.classList.add("header2");
                 let headerDiv = document.createElement("div");
                 headerDiv.classList.add("listGroup");
-
+                headerDiv.appendChild(filler);
                 headerDiv.appendChild(header1);
-                header1.style.marginLeft = "50px";
                 headerDiv.appendChild(header2);
-                header2.style.marginLeft = "30px";
+                
                 
 
                 loadLocation.appendChild(headerDiv);
                 let headerSpacer = document.createElement("hr");
+                headerSpacer.classList.add("headSpacer");
                 loadLocation.appendChild(headerSpacer);
       
       
@@ -59,8 +63,6 @@ if (!isset ($_SESSION["username"])){
                   selectBtn1.innerHTML = "Select";
                   selectBtn1.setAttribute("type","button");
                   selectBtn1.classList.add("selectBtn");
-                  selectBtn1.style.marginBottom = "0px";
-                  selectBtn1.style.marginLeft ="10px";
                   let line1 = document.createElement("p");
                   let line2 = document.createElement("p");
                   let listingGroup = document.createElement("div");
@@ -68,7 +70,9 @@ if (!isset ($_SESSION["username"])){
                   listingGroup.classList.add("listGroup");
                   listingGroup.style.margin = "0px";
                   line1.innerHTML = array[i];
+                  line1.classList.add("line1");
                   line2.innerHTML = array[i+1];
+                  line2.classList.add("line2");
                   listingGroup.appendChild(selectBtn1);
                   listingGroup.appendChild(line1);
                   listingGroup.appendChild(line2);
@@ -76,19 +80,13 @@ if (!isset ($_SESSION["username"])){
                   let lineSpacer = document.createElement("hr");
                   loadLocation.appendChild(lineSpacer);
                   lineSpacer.style.margin = "0px";
-                  lineSpacer.style.marginBottom = "5px";
-                  lineSpacer.style.padding = "0px";
-                  lineSpacer.style.paddingLeft = "10px";
+                  lineSpacer.style.marginBottom = "2px";
                   
                   
 
 
                   //styles
-                  line1.style.marginTop = "0px";
-                  line1.style.marginLeft = "5px";
-
-                  line2.style.marginTop = "0px";
-                  line2.style.marginLeft = "auto";
+                  
       }
       let cloneLocation = loadLocation.cloneNode(true);
       loadLocation.parentNode.replaceChild(cloneLocation,loadLocation);
@@ -131,8 +129,8 @@ if (!isset ($_SESSION["username"])){
   loadDropDown();
   let forwardBtn = document.getElementById("forwardBtn");
   forwardBtn.addEventListener("click", function(){
-    if(recordAmount == 40){
-    recordOffset +=20;
+    if(recordAmount == 36){
+    recordOffset +=18;
     pageNumbVal +=1;
     loadList();
     }
@@ -140,7 +138,7 @@ if (!isset ($_SESSION["username"])){
   let backBtn = document.getElementById("backBtn");
   backBtn.addEventListener("click", function(){
     if(recordOffset >0){
-      recordOffset -=20;
+      recordOffset -=18;
       pageNumbVal -=1;
       loadList();
     }
@@ -182,8 +180,8 @@ if (!isset ($_SESSION["username"])){
           loadSpot.innerHTML = "";
           let headerParagraph = document.createElement("p");
           headerParagraph.innerHTML = "<strong>(ID,Name)</strong>";
-          headerParagraph.style.marginLeft = "197px";
-          headerParagraph.style.marginTop = "0px";
+          headerParagraph.classList.add("studentSectionHead");
+          
           loadSpot.appendChild(headerParagraph);
           console.log(loadSpot);
 
@@ -196,27 +194,21 @@ if (!isset ($_SESSION["username"])){
            let line1 = document.createElement("button");
            line1.innerHTML = array[j] + ", "+ array[j+1];
            line1.setAttribute("type","button");
+           line1.classList.add("paraButton");
            line1.dataset.id = array[j];
             loadDiv.appendChild(line1);
-            line1.style.borderRight = "3px groove #f1f1f1";
-            line1.style.width = "250px";
-            line1.style.marginTop = "0px";
-            line1.style.marginBottom = "0px";
-            line1.style.paddingBottom = "8px";
-            line1.style.borderBottom = "3px groove #f1f1f1";
+            
+            
+            
 
             if(i < loadLength-1){
               let line2 = document.createElement("button");
               line2.innerHTML = array[j+3] + ", "+ array[j+4];
               line2.setAttribute("type","button");
+              line2.classList.add("paraButton2");
               line2.dataset.id = array[j+3];
               loadDiv.appendChild(line2);
-              line2.style.marginLeft = "0px";
-              line2.style.paddingLeft= "20px";
-              line2.style.marginTop = "0px";
-              line2.style.marginBottom = "0px";
-              line2.style.borderBottom = "3px groove #f1f1f1";
-              line2.style.width = "250px";
+              
             }
             loadSpot.appendChild(loadDiv);
             loadDiv.classList.add("subListing");
@@ -300,26 +292,32 @@ if (!isset ($_SESSION["username"])){
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
         ?>
         <a href="../../PHP/logout.php">|Log Out|</a>
-        <img src="../../img/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+        
         </div>
 </div>
 <form>
   <div class="container">
     <!-- left side of page -->
     <div class = "section1">
-    <h1>Check-Out</h1>
-    <p>Please fill in this form to check-out an item</p>
+    <h1 id ="leftHeader">Check-Out</h1>
+    <p id = "leftDescription">Please fill in this form to check-out an item</p>
     <p class= "errorField" id="errorField"></p>
-    <label for="equipmentid">Equipment ID</label>
+    <label class="inputSet" for="equipmentid">Equipment ID</label>
     <input type="text" placeholder="Enter Equipment ID" name="equipmentid" id="equipmentid" required>
-    <label for="studentid">Student ID</label>
+    <label class="inputSet" for="studentid">Student ID</label>
     <input type="text" placeholder="Enter Student ID" name="studentid" id="studentid" required>
+    <div class="otherGroup">
     <button type="submit" name="save" class="registerbtn">Check-Out</button>
-    <hr>
-    <p class ="errorText" id="errorText"></p>
+    <button type="reset" name="reset" class="registerbtn2">Reset</button>
+    <div class="rowButtons">
     <select id = "classID">
     </select>
     <button type="button" class="displayBtn" id= "displayBtn">Display Students</button>
+    </div>
+    </div>
+    <hr class="lineSeparator">
+    <p class ="errorText" id="errorText"></p>
+    
     <div class = "subsection1" id = "subsection1">
     
     
@@ -330,8 +328,8 @@ if (!isset ($_SESSION["username"])){
     
     <!-- right side of page -->
     <div class = "section2">
-      <h1>Available</h1>
-      <p> Below is a list of all equipment available for checkout </p>
+      <h1 id= "rightHeader">Available</h1>
+      <p id= "rightDescription"> Below is a list of all equipment available for checkout </p>
       <div class = "loadLocation" id = "loadLocation">
           <div class= "heading">
               <p class= "first"> <strong>Name</strong> </p>
@@ -342,11 +340,10 @@ if (!isset ($_SESSION["username"])){
       
       <div class="advanceButtons">
           <button type="button" id="backBtn"><<</button>
+          <p id = "numberVal">1</p>
           <button type="button" id ="forwardBtn">>></button>
       </div>
-      <div class="pageNumber">
-      <p id = "numberVal">1</p>
-      </div>
+      
       
     </div>
   </div>
