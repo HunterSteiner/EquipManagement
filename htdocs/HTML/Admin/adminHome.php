@@ -17,8 +17,9 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="../../CSS/Styles.css" />
+    <title>Admin Home</title>
+    <link rel="icon" type="image/x-icon" href="../../Favicon2.ico" />
+    <link rel="stylesheet" href="../../CSS/adminHomeV2.css" />
 </head>
 <body>
     <div class="menuBar">
@@ -32,14 +33,17 @@ if ((!isset ($_SESSION["username"])) || (!isset ($_SESSION["administrator"]))){
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
         ?>
         <a href="../../PHP/logout.php">|Log Out|</a>
-        <img src="../../img/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+        
         </div>
     </div>
     <div class="mainContent">
         <h1>Admin Home Page</h1>
-        <p style="font-size: 20px;"><strong>Add Employee:</strong> Admins can easily onboard new employees with this page. Enter their school email address and assign a temporary password. The system automatically sends an email for email verification and password change, ensuring secure access.</p>
-        <p style="font-size: 20px;"><strong>Add Inventory: </strong> inventory management. Add new items effortlessly by providing the equipment's name and its unique ID. This page streamlines the process of expanding your inventory database.</p>
-        <p style="font-size: 20px;"><strong>Add Class: </strong>Managing student access is a breeze. Use this page to add classes of students authorized to check out equipment. By inputting class details, you control who has access, ensuring equipment lending is organized and controlled.</p>
+        <p class = "welcome"> Welcome to the Equipment Web Checkout System!</p>
+        <p class="middlePara2"><strong>Employees: </strong>This refers to everyone who has an account saved within the database. On the Employee page, you can see each employee, as well as the ability to select, edit, delete, and change the passwords of each account. You also have the ability to add or remove admin privledges.</p>
+        <p class="middlePara2"><strong>Inventory: </strong> This refers to all equipment items that are available to rent to students. On the invenory page, you can view all inventory items that exist in the database. You can also edit the names, manually set the availability and delete them if needed.</p>
+        <p class="middlePara2"><strong>Classes: </strong>This refers to the classes authorized to get equipment. On the class page, you can view all classes currently saved in the database. You are also able to select and edit classes and delete, as well as add new ones.</p>
+        <p class="middlePara2"><strong>Students: </strong>This refers to the students that belong to the authorized classes. On the students page, you are able to select a class and view all students currently placed inside. This is where you can add/ remove students or edit them in any way.</p>
+        <p class="notice"><strong>Notice:</strong>Be careful when deleting an item, as recovering them would require accessing the database directly.</p>
     </div>
 </body>
 <footer>

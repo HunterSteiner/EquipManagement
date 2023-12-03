@@ -44,9 +44,11 @@ img{
     flex-direction: column;
     background-color: white;
     margin: 35px 50px;
-    height:600px;
+    min-height: 870px;
+    max-height: 1200px;
     border-radius: 30px;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    min-width: 970px;
 
 }
 
@@ -79,12 +81,10 @@ form >div{
     width: 120px;
     background-color: #022b3a;
     color: white;
-    opacity:.9;
-    cursor: pointer;
-    border:none;
 }
 .formButtons > input:hover{
-    opacity:1;
+    background-color:#Bfdbf7;
+    color: black;
 }
 body{
     /*background-color: #Bfdbf7; */
@@ -93,6 +93,7 @@ body{
     min-height: 100vh;
     display:flex;
     flex-direction: column;
+    min-width: 1200px;
 }
 .inputGroup{
     padding-top: 10px;
@@ -159,6 +160,53 @@ footer>p{
 .formButtonGroup{
     height:60px;
 } 
-.loginBtn{
-    background-color: red;
+.welcome{
+    
+    display: flex;
+    justify-content: center;
+}
+.firstPara{
+    
+    padding-left: 10px;
+    padding-right: 0px;
+    padding-top: 20px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    
+}
+.secondPara{
+    padding-left: 10px;
+    
+
+}
+.paraGroup{
+    display:flex;
+    flex-direction: row;
+    margin-top: 20px;
+    height:700px;
+    
+}
+.firstParaSec{
+    border-right: 1px solid gray;
+    height:660px;
+    min-width: 30vw;
+    
+    
+}
+li{
+    
+    margin-right: 35px;
+    margin-bottom: 30px;
+
+}
+.secondParaSec{
+    border-right: 1px solid gray;
+    height:660px;
+    min-width: 30vw;
+    
+}
+.thirdParaSec{
+    height:660px;
+    min-width: 30vw;
+    
 }

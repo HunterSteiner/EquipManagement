@@ -13,6 +13,8 @@ if (!isset ($_SESSION["username"])){
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Change Password</title>
+<link rel="icon" type="image/x-icon" href="../../Favicon2.ico" />
 <link rel="stylesheet" href="../../CSS/addEmployee.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
@@ -87,7 +89,7 @@ if (!isset ($_SESSION["username"])){
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
         ?>
         <a href="../../PHP/logout.php">|Log Out|</a>
-        <img src="../../img/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+        
        </div>
 </div>
 <form>

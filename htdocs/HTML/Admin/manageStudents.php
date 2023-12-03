@@ -13,6 +13,8 @@ if (!isset ($_SESSION["username"])){
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Students</title>
+<link rel="icon" type="image/x-icon" href="../../Favicon2.ico" />
 <link rel="stylesheet" href="../../CSS/addEmployee.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
@@ -144,7 +146,7 @@ if (!isset ($_SESSION["username"])){
                  thistest.prepend(newinput3);
                  newinput3.value = thistext3;
                  newinput3.classList.add("newinput");
-                 newinput3.style.marginLeft = "130px";
+                 newinput3.style.marginLeft = "16px";
                  newinput3.style.width = "210px";
 
                  thistest.prepend(newpara2);
@@ -154,6 +156,7 @@ if (!isset ($_SESSION["username"])){
                  newinput.value = thistext;
                  newinput.classList.add("newinput");
                  newinput.style.marginLeft = "16px";
+                 newinput.style.marginRight= "54px";
 
                  //change edit button to cancel. also adds an event listener and disables the current event listener
                  let thisEditbtn = thistestChildren[6];
@@ -353,7 +356,7 @@ if (!isset ($_SESSION["username"])){
             echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
          ?>
          <a href="../../PHP/logout.php">|Log Out|</a>
-        <img src="../../img/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+        
        </div>
 </div>
 <div class="extended-form">
