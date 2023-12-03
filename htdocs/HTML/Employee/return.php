@@ -12,8 +12,9 @@ if (!isset ($_SESSION["username"])){
 <!DOCTYPE html>
 <html>
 <head>
+  <title> Return Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../CSS/return.css" />
+<link rel="stylesheet" href="../../CSS/returnV2.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script>
   $(function () {
@@ -37,28 +38,34 @@ if (!isset ($_SESSION["username"])){
                 pageNumberPara.innerHTML = pageNumbVal;
       let loadLocation = document.getElementById("loadLocation");
       loadLocation.innerHTML = "";
+      let filler = document.createElement("p");
+      filler.classList.add("filler");
       let header1 = document.createElement("p");
+      header1.classList.add("header1");
       header1.innerHTML = "<strong>Equipment ID</strong>";
       let header2 = document.createElement("p");
+      header2.classList.add("header2");
       header2.innerHTML = "<strong>Equipment Name</strong>";
       let header3 = document.createElement("p");
+      header3.classList.add("header3");
       header3.innerHTML = "<strong>Student ID</strong>";
       let header4 = document.createElement("p");
+      header4.classList.add("header4");
       header4.innerHTML = "<strong>Student Name</strong>";
       let headerDiv = document.createElement("div");
-      headerDiv.classList.add("listGroup");
-
+      headerDiv.classList.add("headerListGroup");
+      headerDiv.appendChild(filler);
       headerDiv.appendChild(header1);
-      header1.style.marginLeft = "50px";
       headerDiv.appendChild(header2);
-      header2.style.marginLeft = "30px";
+      
       headerDiv.appendChild(header3);
-      header3.style.marginLeft = "30px";
+      
       headerDiv.appendChild(header4);
-      header4.style.marginLeft = "30px";
+      
 
       loadLocation.appendChild(headerDiv);
       let headerSpacer = document.createElement("hr");
+      headerSpacer.classList.add("headSpacer");
       loadLocation.appendChild(headerSpacer);
       
       
@@ -67,7 +74,6 @@ if (!isset ($_SESSION["username"])){
         selectBtn.setAttribute("type", "button");
         selectBtn.innerHTML = "Select";
         selectBtn.classList.add("selectBtn");
-        selectBtn.style.marginLeft = "10px";
 
         let line1 = document.createElement("p");
         let line2 = document.createElement("p");
@@ -76,9 +82,13 @@ if (!isset ($_SESSION["username"])){
         let listingGroup = document.createElement("div");
         listingGroup.classList.add("listGroup");
         line1.innerHTML = array[i];
+        line1.classList.add("line1");
         line2.innerHTML = array[i+1];
+        line2.classList.add("line2");
         line3.innerHTML = array[i+2];
+        line3.classList.add("line3");
         line4.innerHTML = array[i+3];
+        line4.classList.add("line4");
         listingGroup.appendChild(selectBtn);
 
         listingGroup.appendChild(line1);
@@ -87,30 +97,17 @@ if (!isset ($_SESSION["username"])){
         listingGroup.appendChild(line4);
         loadLocation.appendChild(listingGroup);
         let lineSpacer1 = document.createElement("hr");
+        
         loadLocation.appendChild(lineSpacer1);
         lineSpacer1.style.margin = "0px";
         lineSpacer1.style.marginBottom = "2px";
 
         //styles
-        line1.style.marginTop = "0px";
-        line1.style.marginLeft = "5px";
-        line1.style.width ="100px";
+        
 
-        line2.style.marginTop = "0px";
-        line2.style.marginLeft = "70px";
-        line2.style.width = "200px";
+        
 
-        line3.style.marginTop = "0px";
-        line3.style.marginLeft = "10px";
-        line3.style.width="100px";
-
-        line4.style.marginTop = "0px";
-        line4.style.marginLeft = "10px";
-
-
-
-
-
+        
       }
       let cloneLocation = loadLocation.cloneNode(true);
       loadLocation.parentNode.replaceChild(cloneLocation,loadLocation);
@@ -207,45 +204,37 @@ if (!isset ($_SESSION["username"])){
          echo '<p class= "dynamic"> Welcome, '. $_SESSION['username']. '</p>';
         ?>
         <a href="../../PHP/logout.php">|Log Out|</a>
-        <img src="../../img/Icon2.png" alt="Icon"> <!-- icon needs to be 50px by 50px -->
+        
         </div>
 </div>
 <form>
   <div class="container">
     
     <div class = "section1">
-    <h1>Check-In</h1>
-    <p>Please fill in this form to return an item</p>
+    <h1 id ="leftHeader">Check-In</h1>
+    <p id = "leftDescription">Please fill in this form to return an item</p>
     <p class= "errorField" id="errorField"></p>
-    <label for="equipmentid">Equipment ID</label>
-    <input type="text" placeholder="Enter Equipment ID" name="equipmentid" id="equipmentid" required>
-    <label for="studentid">Student ID</label>
-    <input type="text" placeholder="Enter Student ID" name="studentid" id="studentid" required>
-    <button type="submit" name="save" class="registerbtn">Check-In</button>
+    <label class = "inputSet" for="equipmentid">Equipment ID</label>
+    <input  type="text" placeholder="Enter Equipment ID" name="equipmentid" id="equipmentid" required>
+    <label class = "inputSet" for="studentid">Student ID</label>
+    <input  type="text" placeholder="Enter Student ID" name="studentid" id="studentid" required>
+    <button type="submit" name="save" class="registerbtnLeft registerbtn">Check-In</button>
+    <button type="reset"  name="reset" class="registerbtn">Reset</button>
     <p></p>
     </div>
     
     
     <div class = "section2">
-    <h1>Outstanding Equipment</h1>
-      <p> Below is a list of all equipment waiting to be returned </p>
-      <div class = "loadLocation" id = "loadLocation">
-        
+    <h1 id ="rightHeader">Outstanding Equipment</h1>
+      <p id= "rightDescription"> Below is a list of all equipment waiting to be returned: </p>
+      <div class = "loadLocation" id = "loadLocation"></div>
 
-
-
-      </div>
       <div class="advanceButtons">
           <button type="button" id="backBtn"><<</button>
+          <p id = "numberVal">1</p>
           <button type="button" id ="forwardBtn">>></button>
       </div>
-      <div class="pageNumber">
-      <p id = "numberVal">1</p>
-      </div>
     </div>
-    
-  
-  
   </div>
   
   
