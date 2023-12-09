@@ -30,3 +30,18 @@ body {
   background-color: #1F7A8C;
   color: white;
 }
+footer{
+    
+  margin-top:auto;
+  
+  
+  color: white;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.footergroup{
+  background-color: #022b3a;
+  display:flex;
+  flex-direction:row;
+  color: white;
+}
